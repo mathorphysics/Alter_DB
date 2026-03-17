@@ -1,4 +1,5 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DollarSign, BarChart2, TrendingUp } from 'lucide-react';
 
 import SearchBar from '../components/SearchBar';
@@ -32,6 +33,7 @@ function EmptyState() {
 }
 
 export default function FundamentalsPage() {
+  const [searchParams] = useSearchParams();
   const [symbol, setSymbol] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -76,6 +78,12 @@ export default function FundamentalsPage() {
       setLoading(false);
     }
   }, []);
+
+  // Auto-search when arriving from Supply Chain via ?ticker=NVDA
+  useEffect(() => {
+    const ticker = searchParams.get('ticker');
+    if (ticker) handleSearch(ticker.toUpperCase());
+  }, [handleSearch]);
 
   const hasData = quote || profile || priceHistory.length > 0 || metrics;
 
