@@ -32,7 +32,7 @@ function CustomTooltip({ active, payload, label }) {
 }
 
 export default function PriceChart({ data, symbol }) {
-  const [rangeIdx, setRangeIdx] = useState(3);
+  const [rangeIdx, setRangeIdx] = useState(4);
 
   const filteredData = (() => {
     const days = RANGES[rangeIdx].days;

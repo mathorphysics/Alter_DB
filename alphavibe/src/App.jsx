@@ -103,9 +103,9 @@ export default function App() {
     setPriceHistory([]);
     setMetrics(null);
 
-    const oneYearAgo = new Date();
-    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-    const startDate = oneYearAgo.toISOString().split('T')[0];
+    const fiveYearsAgo = new Date();
+    fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5);
+    const startDate = fiveYearsAgo.toISOString().split('T')[0];
     const endDate = new Date().toISOString().split('T')[0];
 
     try {
@@ -115,6 +115,11 @@ export default function App() {
         fetchHistoricalPrice(ticker, startDate, endDate),
         fetchFundamentalMetrics(ticker),
       ]);
+
+      console.log('[quote]', q.status, q.status === 'fulfilled' ? q.value : q.reason?.message);
+      console.log('[profile]', p.status, p.status === 'fulfilled' ? p.value : p.reason?.message);
+      console.log('[history]', hist.status, hist.status === 'fulfilled' ? `${hist.value?.length} rows` : hist.reason?.message);
+      console.log('[metrics]', met.status, met.status === 'fulfilled' ? met.value : met.reason?.message);
 
       if (q.status === 'fulfilled') setQuote(q.value);
       if (p.status === 'fulfilled') setProfile(p.value);
@@ -166,27 +171,29 @@ export default function App() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <MetricCard
                 label="Last Price"
-                value={quote?.last_price ?? quote?.price}
+                value={quote?.last_price}
                 format="price"
-                change={quote?.change_percent}
+                change={quote?.prev_close != null && quote?.last_price != null
+                  ? ((quote.last_price - quote.prev_close) / quote.prev_close) * 100
+                  : undefined}
                 icon={DollarSign}
                 highlight
               />
               <MetricCard
                 label="Market Cap"
-                value={profile?.market_cap ?? metrics?.market_cap}
+                value={metrics?.market_cap}
                 format="marketcap"
                 icon={BarChart2}
               />
               <MetricCard
-                label="P/E Ratio (TTM)"
-                value={metrics?.pe_ratio ?? quote?.pe_ratio}
+                label="P/E Ratio"
+                value={metrics?.pe_ratio}
                 format="ratio"
                 icon={TrendingUp}
               />
               <MetricCard
                 label="EV / EBITDA"
-                value={metrics?.ev_to_ebitda}
+                value={metrics?.enterprise_to_ebitda}
                 format="ratio"
                 icon={BarChart2}
               />
@@ -195,20 +202,20 @@ export default function App() {
             {/* Second row of metrics */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <MetricCard
-                label="Revenue (TTM)"
-                value={metrics?.revenue}
-                format="marketcap"
+                label="Revenue Growth"
+                value={metrics?.revenue_growth != null ? metrics.revenue_growth * 100 : null}
+                format="percent"
                 icon={DollarSign}
               />
               <MetricCard
                 label="Net Margin"
-                value={metrics?.net_profit_margin != null ? metrics.net_profit_margin * 100 : null}
+                value={metrics?.profit_margin != null ? metrics.profit_margin * 100 : null}
                 format="percent"
                 icon={TrendingUp}
               />
               <MetricCard
                 label="ROE"
-                value={metrics?.roe != null ? metrics.roe * 100 : null}
+                value={metrics?.return_on_equity != null ? metrics.return_on_equity * 100 : null}
                 format="percent"
                 icon={BarChart2}
               />
