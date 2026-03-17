@@ -31,7 +31,7 @@ function Skeleton() {
   );
 }
 
-export default function CompanyCard({ company, stageColor, altData }) {
+export default function CompanyCard({ company, stageColor, altData, onOpenModal }) {
   const [open, setOpen] = useState(false);
   const [fundData, setFundData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -204,17 +204,26 @@ export default function CompanyCard({ company, stageColor, altData }) {
                   {altData.map((m) => (
                     <div key={m.label} className="flex items-center justify-between gap-2">
                       <span className="text-[9px] text-[#8b949e] leading-tight">{m.label}</span>
-                      <span
-                        className="text-[9px] font-mono font-semibold flex-shrink-0"
-                        style={{
-                          color:
-                            m.delta === 'up'   ? '#34d399' :
-                            m.delta === 'risk' ? '#f87171' :
-                                                 '#e7cd79',
-                        }}
-                      >
-                        {m.value}
-                      </span>
+                      {m.modal ? (
+                        <button
+                          onClick={() => onOpenModal?.(m.modal)}
+                          className="text-[9px] font-mono font-semibold flex-shrink-0 text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors"
+                        >
+                          {m.value}
+                        </button>
+                      ) : (
+                        <span
+                          className="text-[9px] font-mono font-semibold flex-shrink-0"
+                          style={{
+                            color:
+                              m.delta === 'up'   ? '#34d399' :
+                              m.delta === 'risk' ? '#f87171' :
+                                                   '#e7cd79',
+                          }}
+                        >
+                          {m.value}
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>

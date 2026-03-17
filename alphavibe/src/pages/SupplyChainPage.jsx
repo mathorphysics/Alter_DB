@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Network, Info } from 'lucide-react';
 import { STAGES } from '../components/supplychain/data';
 import StageColumn from '../components/supplychain/StageColumn';
 import FlowConnector from '../components/supplychain/FlowConnector';
+import AlternativeDataModal from '../components/supplychain/AlternativeDataModal';
 
 export default function SupplyChainPage() {
+  const [modalKey, setModalKey] = useState(null);
+
   return (
     <div className="space-y-5">
       {/* Page header */}
@@ -68,7 +72,7 @@ export default function SupplyChainPage() {
         <div className="flex items-start min-w-max gap-0">
           {STAGES.map((stage, i) => (
             <div key={stage.id} className="flex items-start">
-              <StageColumn stage={stage} index={i} />
+              <StageColumn stage={stage} index={i} onOpenModal={setModalKey} />
               {i < STAGES.length - 1 && (
                 <FlowConnector
                   fromColor={stage.color}
@@ -79,6 +83,12 @@ export default function SupplyChainPage() {
           ))}
         </div>
       </div>
+
+      {/* Alt Data modal — rendered at page level to avoid z-index issues */}
+      <AlternativeDataModal
+        open={modalKey === 'taiwan-equipment-imports'}
+        onClose={() => setModalKey(null)}
+      />
     </div>
   );
 }

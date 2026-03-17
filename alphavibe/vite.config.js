@@ -7,9 +7,14 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // Proxy /api calls to the local OpenBB backend to avoid CORS issues
+      // OpenBB Platform
       '/api': {
         target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+      // SemiResearch Alt-Data API
+      '/alt-data': {
+        target: 'http://localhost:3001',
         changeOrigin: true,
       },
     },

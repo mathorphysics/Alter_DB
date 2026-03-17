@@ -46,7 +46,14 @@ export const STAGES = [
     Icon: Factory,
     color: '#34d399',
     companies: [
-      { name: 'TSMC',            ticker: 'TSM',      desc: '纯代工龙头，2nm 领先',  flag: '🇹🇼', role: 'Pure-Play' },
+      {
+        name: 'TSMC', ticker: 'TSM', desc: '纯代工龙头，2nm 领先', flag: '🇹🇼', role: 'Pure-Play',
+        altData: [
+          { label: 'Equipment Imports (TW)', value: 'View Chart →', delta: null, modal: 'taiwan-equipment-imports' },
+          { label: 'Fab Utilization (est)',   value: '82%',          delta: 'up' },
+          { label: 'CoWoS Capacity',          value: 'Constrained',  delta: 'risk' },
+        ],
+      },
       { name: 'Samsung Foundry', ticker: '005930.KS', desc: '2nm GAA 竞争者',       flag: '🇰🇷', role: 'IDM Foundry' },
       { name: 'Intel IFS',       ticker: 'INTC',     desc: '英特尔代工服务',        flag: '🇺🇸', role: 'IDM Foundry' },
       { name: 'SMIC',            ticker: 'SMICY',    desc: '中国最先进代工厂',      flag: '🇨🇳', role: 'Mature Node' },
