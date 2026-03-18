@@ -351,6 +351,33 @@ def equity_metrics(symbol: str, provider: str = "yfinance", period: str = "annua
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/v1/equity/price/historical", tags=["Equity"])
+def equity_historical(
+    symbol: str,
+    provider: str = "yfinance",
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    interval: str = "1d",
+):
+    try:
+        t = yf.Ticker(symbol)
+        df = t.history(start=start_date, end=end_date, interval=interval)
+        results = [
+            {
+                "date":   str(idx.date()),
+                "open":   row["Open"],
+                "high":   row["High"],
+                "low":    row["Low"],
+                "close":  row["Close"],
+                "volume": row["Volume"],
+            }
+            for idx, row in df.iterrows()
+        ]
+        return {"results": results}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # ── Health ────────────────────────────────────────────────────────────────────
 
 @app.get("/health", tags=["System"])
