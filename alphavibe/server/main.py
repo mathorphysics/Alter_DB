@@ -36,12 +36,20 @@ app = FastAPI(
 )
 
 import os
+import re
 
-_extra_origins = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+def _is_allowed_origin(origin: str) -> bool:
+    if origin in ("http://localhost:5173", "http://localhost:5174"):
+        return True
+    if re.search(r'https://[a-z0-9-]+(\.vercel\.app)$', origin):
+        return True
+    extra = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+    return origin in extra
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"] + _extra_origins,
+    allow_origin_regex=r"https://[a-zA-Z0-9\-]+\.vercel\.app",
+    allow_origins=["http://localhost:5173", "http://localhost:5174"],
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
