@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Network, Info } from 'lucide-react';
 import { STAGES } from '../components/supplychain/data';
@@ -8,6 +8,18 @@ import AlternativeDataModal from '../components/supplychain/AlternativeDataModal
 
 export default function SupplyChainPage() {
   const [modalKey, setModalKey] = useState(null);
+  const [expandAll, setExpandAll] = useState(false);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === 'e' && !e.metaKey && !e.ctrlKey && !e.altKey &&
+          !['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) {
+        setExpandAll((v) => !v);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   return (
     <div className="space-y-5">
@@ -63,7 +75,7 @@ export default function SupplyChainPage() {
         ))}
         <div className="ml-auto flex items-center gap-1 text-[10px] text-[#484f58]">
           <Info size={9} />
-          <span>Expand cards for Fundamental + Alt Data</span>
+          <span>Press <kbd className="px-1 py-px bg-[#21262d] border border-[#30363d] rounded text-[9px] font-mono">E</kbd> to expand all cards</span>
         </div>
       </motion.div>
 
@@ -72,7 +84,7 @@ export default function SupplyChainPage() {
         <div className="flex items-start min-w-max gap-0">
           {STAGES.map((stage, i) => (
             <div key={stage.id} className="flex items-start">
-              <StageColumn stage={stage} index={i} onOpenModal={setModalKey} />
+              <StageColumn stage={stage} index={i} onOpenModal={setModalKey} expandAll={expandAll} />
               {i < STAGES.length - 1 && (
                 <FlowConnector
                   fromColor={stage.color}

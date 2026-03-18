@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import CompanyCard from './CompanyCard';
 
-export default function StageColumn({ stage, index, onOpenModal }) {
+export default function StageColumn({ stage, index, onOpenModal, expandAll }) {
   const { label, subtitle, Icon, color, companies, altData } = stage;
 
   return (
@@ -67,6 +67,7 @@ export default function StageColumn({ stage, index, onOpenModal }) {
               stageColor={color}
               altData={company.altData ?? altData}
               onOpenModal={onOpenModal}
+              expandAll={expandAll}
             />
           </motion.div>
         ))}

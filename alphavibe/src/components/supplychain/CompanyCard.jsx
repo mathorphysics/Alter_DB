@@ -31,8 +31,10 @@ function Skeleton() {
   );
 }
 
-export default function CompanyCard({ company, stageColor, altData, onOpenModal }) {
+export default function CompanyCard({ company, stageColor, altData, onOpenModal, expandAll }) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => { if (expandAll !== undefined) setOpen(expandAll); }, [expandAll]);
   const [fundData, setFundData] = useState(null);
   const [loading, setLoading] = useState(false);
   const fetched = useRef(false);
