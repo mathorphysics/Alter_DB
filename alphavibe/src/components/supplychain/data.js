@@ -49,9 +49,9 @@ export const STAGES = [
       {
         name: 'TSMC', ticker: 'TSM', desc: '纯代工龙头，2nm 领先', flag: '🇹🇼', role: 'Pure-Play',
         altData: [
-          { label: 'Equipment Imports (TW)', value: 'View Chart →', delta: null, modal: 'taiwan-equipment-imports' },
-          { label: 'Fab Utilization (est)',   value: '82%',          delta: 'up' },
-          { label: 'CoWoS Capacity',          value: 'Constrained',  delta: 'risk' },
+          { label: 'Monthly Revenue',          value: 'View Chart →', delta: null, link: '/alternatives?tag=TSMC' },
+          { label: 'Equipment Imports (TW)',   value: 'View Chart →', delta: null, link: '/alternatives?tag=TSMC' },
+          { label: 'Fabless Inventory Index',  value: 'View Chart →', delta: null, link: '/alternatives?tag=TSMC' },
         ],
       },
       { name: 'Samsung Foundry', ticker: '005930.KS', desc: '2nm GAA 竞争者',       flag: '🇰🇷', role: 'IDM Foundry' },

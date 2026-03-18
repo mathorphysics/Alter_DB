@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  macOS LaunchAgent — run Taiwan Customs refresh on the 5th of every month at 09:00.
+
+  Install:
+    cp com.alterdb.taiwan-customs-refresh.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.alterdb.taiwan-customs-refresh.plist
+
+  Uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.alterdb.taiwan-customs-refresh.plist
+    rm ~/Library/LaunchAgents/com.alterdb.taiwan-customs-refresh.plist
+
+  Run manually to test:
+    launchctl start com.alterdb.taiwan-customs-refresh
+
+  Check last run:
+    cat /Users/lexie_chen/Alter_DB/alphavibe/server/data/cron.log
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.alterdb.taiwan-customs-refresh</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/lexie_chen/Alter_DB/venv/bin/python3</string>
+    <string>/Users/lexie_chen/Alter_DB/alphavibe/server/cron_refresh.py</string>
+  </array>
+
+  <!-- Run on the 5th of each month at 09:00 local time -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Day</key>
+    <integer>5</integer>
+    <key>Hour</key>
+    <integer>9</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/lexie_chen/Alter_DB/alphavibe/server/data/cron.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/lexie_chen/Alter_DB/alphavibe/server/data/cron.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <!-- Restart if script crashes -->
+  <key>KeepAlive</key>
+  <false/>
+</dict>
+</plist>

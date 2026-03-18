@@ -1,0 +1,184 @@
+[
+  {
+    "date": "2024-01",
+    "label": "Jan 2024",
+    "revenue": 215785.0,
+    "mom": 7.9,
+    "yoy": null
+  },
+  {
+    "date": "2024-02",
+    "label": "Feb 2024",
+    "revenue": 181648.0,
+    "mom": 11.3,
+    "yoy": null
+  },
+  {
+    "date": "2024-03",
+    "label": "Mar 2024",
+    "revenue": 195211.0,
+    "mom": 34.3,
+    "yoy": null
+  },
+  {
+    "date": "2024-04",
+    "label": "Apr 2024",
+    "revenue": 236021.0,
+    "mom": 59.6,
+    "yoy": null
+  },
+  {
+    "date": "2024-05",
+    "label": "May 2024",
+    "revenue": 229620.0,
+    "mom": 30.1,
+    "yoy": null
+  },
+  {
+    "date": "2024-06",
+    "label": "Jun 2024",
+    "revenue": 207869.0,
+    "mom": 32.9,
+    "yoy": null
+  },
+  {
+    "date": "2024-07",
+    "label": "Jul 2024",
+    "revenue": 256953.0,
+    "mom": 44.7,
+    "yoy": null
+  },
+  {
+    "date": "2024-08",
+    "label": "Aug 2024",
+    "revenue": 250866.0,
+    "mom": 33.0,
+    "yoy": null
+  },
+  {
+    "date": "2024-09",
+    "label": "Sep 2024",
+    "revenue": 251873.0,
+    "mom": 39.6,
+    "yoy": null
+  },
+  {
+    "date": "2024-10",
+    "label": "Oct 2024",
+    "revenue": 314240.0,
+    "mom": 29.2,
+    "yoy": null
+  },
+  {
+    "date": "2024-11",
+    "label": "Nov 2024",
+    "revenue": 276058.0,
+    "mom": 34.0,
+    "yoy": null
+  },
+  {
+    "date": "2024-12",
+    "label": "Dec 2024",
+    "revenue": 278163.0,
+    "mom": 57.8,
+    "yoy": null
+  },
+  {
+    "date": "2025-01",
+    "label": "Jan 2025",
+    "revenue": 293288.0,
+    "mom": 35.9,
+    "yoy": null
+  },
+  {
+    "date": "2025-02",
+    "label": "Feb 2025",
+    "revenue": 260009.0,
+    "mom": 43.1,
+    "yoy": null
+  },
+  {
+    "date": "2025-03",
+    "label": "Mar 2025",
+    "revenue": 285957.0,
+    "mom": 46.5,
+    "yoy": null
+  },
+  {
+    "date": "2025-04",
+    "label": "Apr 2025",
+    "revenue": 349567.0,
+    "mom": 48.1,
+    "yoy": null
+  },
+  {
+    "date": "2025-05",
+    "label": "May 2025",
+    "revenue": 320516.0,
+    "mom": 39.6,
+    "yoy": null
+  },
+  {
+    "date": "2025-06",
+    "label": "Jun 2025",
+    "revenue": 263709.0,
+    "mom": 26.9,
+    "yoy": null
+  },
+  {
+    "date": "2025-07",
+    "label": "Jul 2025",
+    "revenue": 323166.0,
+    "mom": 25.8,
+    "yoy": null
+  },
+  {
+    "date": "2025-08",
+    "label": "Aug 2025",
+    "revenue": 335772.0,
+    "mom": 33.8,
+    "yoy": null
+  },
+  {
+    "date": "2025-09",
+    "label": "Sep 2025",
+    "revenue": 330980.0,
+    "mom": 31.4,
+    "yoy": null
+  },
+  {
+    "date": "2025-10",
+    "label": "Oct 2025",
+    "revenue": 367473.0,
+    "mom": 16.9,
+    "yoy": null
+  },
+  {
+    "date": "2025-11",
+    "label": "Nov 2025",
+    "revenue": 343614.0,
+    "mom": 24.5,
+    "yoy": null
+  },
+  {
+    "date": "2025-12",
+    "label": "Dec 2025",
+    "revenue": 335003.0,
+    "mom": 20.4,
+    "yoy": null
+  },
+  {
+    "date": "2026-01",
+    "label": "Jan 2026",
+    "revenue": 401255.0,
+    "mom": 36.8,
+    "yoy": null
+  },
+  {
+    "date": "2026-02",
+    "label": "Feb 2026",
+    "revenue": 317657.0,
+    "mom": 22.2,
+    "yoy": null
+  }
+]

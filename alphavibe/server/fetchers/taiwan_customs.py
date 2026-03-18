@@ -19,9 +19,12 @@ from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
-DATA_DIR   = Path(__file__).parent.parent / "data"
-CACHE_PATH = DATA_DIR / "taiwan_equipment_imports.json"
-CSV_PATH   = DATA_DIR / "taiwan_equipment_imports.csv"   # used by upload endpoint
+DATA_DIR         = Path(__file__).parent.parent / "data"
+CACHE_PATH       = DATA_DIR / "taiwan_equipment_imports.json"
+CACHE_TRADE_PATH = DATA_DIR / "taiwan_equipment_trade.json"
+CSV_PATH         = DATA_DIR / "taiwan_equipment_imports.csv"   # used by upload endpoint
+IMPORT_CSV_PATH  = DATA_DIR / "import.csv"
+EXPORT_CSV_PATH  = DATA_DIR / "export.csv"
 
 
 # ── CSV file discovery ────────────────────────────────────────────────────────
@@ -172,7 +175,34 @@ def load_cache() -> Optional[List[Dict]]:
     return json.loads(CACHE_PATH.read_text()) if CACHE_PATH.exists() else None
 
 
+def save_trade_cache(imports: List[Dict], exports: List[Dict]) -> None:
+    CACHE_TRADE_PATH.write_text(
+        json.dumps({"imports": imports, "exports": exports}, ensure_ascii=False, indent=2)
+    )
+
+def load_trade_cache() -> Optional[Dict]:
+    return json.loads(CACHE_TRADE_PATH.read_text()) if CACHE_TRADE_PATH.exists() else None
+
+
 # ── Entry point ───────────────────────────────────────────────────────────────
+
+def fetch_equipment_trade() -> Dict:
+    """Return combined imports + exports monthly series from import.csv / export.csv."""
+    if IMPORT_CSV_PATH.exists() and EXPORT_CSV_PATH.exists():
+        imports = parse_csv(IMPORT_CSV_PATH)
+        exports = parse_csv(EXPORT_CSV_PATH)
+        save_trade_cache(imports, exports)
+        return {"imports": imports, "exports": exports}
+
+    cached = load_trade_cache()
+    if cached:
+        return cached
+
+    raise FileNotFoundError(
+        "import.csv and export.csv not found in server/data/. "
+        "Download from https://portal.sw.nat.gov.tw/APGA/GA30E and place both files there."
+    )
+
 
 def fetch_equipment_imports() -> List[Dict]:
     csv_path = _find_csv()

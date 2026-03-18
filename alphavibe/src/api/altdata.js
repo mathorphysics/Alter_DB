@@ -18,3 +18,8 @@ async function request(path) {
 export async function fetchEquipmentImports(months = 60) {
   return request(`/tsmc/equipment-imports?months=${months}`);
 }
+
+/** Taiwan HS-8486 equipment import + export combined monthly series. */
+export async function fetchEquipmentTrade() {
+  return request('/tsmc/equipment-trade');
+}

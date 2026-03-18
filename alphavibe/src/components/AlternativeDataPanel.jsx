@@ -1,4 +1,4 @@
-import { Satellite, Ship, Activity, Database, ArrowRight } from 'lucide-react';
+import { Satellite, Activity, Database, ArrowRight } from 'lucide-react';
 
 const PLACEHOLDERS = [
   {
@@ -11,17 +11,7 @@ const PLACEHOLDERS = [
     mockValue: '82.4%',
     mockDelta: '+3.1pp MoM',
     mockUp: true,
-  },
-  {
-    id: 'customs',
-    icon: Ship,
-    title: 'Trade & Customs Flow',
-    desc: 'HS-code level import/export trends for semiconductors & advanced materials',
-    badge: 'Coming Soon',
-    color: '#e7cd79',
-    mockValue: '$4.2B',
-    mockDelta: '-8.7% YoY',
-    mockUp: false,
+    tags: ['TSMC', 'Samsung', 'Intel'],
   },
   {
     id: 'shipping',
@@ -33,6 +23,7 @@ const PLACEHOLDERS = [
     mockValue: '1,847',
     mockDelta: 'vessels / 7d',
     mockUp: true,
+    tags: ['TSMC', 'Logistics'],
   },
 ];
 
@@ -56,13 +47,19 @@ function MockSparkline({ up }) {
   );
 }
 
-export default function AlternativeDataPanel() {
+export default function AlternativeDataPanel({ filterTag }) {
+  const items = filterTag
+    ? PLACEHOLDERS.filter((p) => p.tags.includes(filterTag))
+    : PLACEHOLDERS;
+
+  if (items.length === 0) return null;
+
   return (
     <div className="bg-[#161b22] border border-[#21262d] rounded-lg p-4">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Database size={14} className="text-[#467897]" />
-          <h3 className="text-sm font-semibold text-[#e6edf3]">Alternative Data</h3>
+          <h3 className="text-sm font-semibold text-[#e6edf3]">Coming Soon</h3>
           <span className="px-1.5 py-0.5 text-[10px] bg-[#e7cd79]/10 border border-[#e7cd79]/30 text-[#e7cd79] rounded font-medium">
             ALPHA
           </span>
@@ -77,7 +74,7 @@ export default function AlternativeDataPanel() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        {PLACEHOLDERS.map((item) => {
+        {items.map((item) => {
           const Icon = item.icon;
           return (
             <div
@@ -103,6 +100,18 @@ export default function AlternativeDataPanel() {
                     </div>
                     <span className="text-xs font-medium text-[#e6edf3] leading-tight">{item.title}</span>
                   </div>
+                </div>
+
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-1.5 py-px text-[9px] rounded font-medium"
+                      style={{ background: `${item.color}15`, color: item.color, border: `1px solid ${item.color}30` }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
 
                 <p className="text-[11px] text-[#8b949e] leading-relaxed mb-3">{item.desc}</p>

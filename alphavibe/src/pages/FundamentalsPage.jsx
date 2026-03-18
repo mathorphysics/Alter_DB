@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { DollarSign, BarChart2, TrendingUp } from 'lucide-react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { DollarSign, BarChart2, TrendingUp, ArrowRight } from 'lucide-react';
 
 import SearchBar from '../components/SearchBar';
 import MetricCard from '../components/MetricCard';
@@ -29,6 +29,24 @@ function EmptyState() {
         ))}
       </div>
     </div>
+  );
+}
+
+function TsmcAltDataTeaser() {
+  const navigate = useNavigate();
+  const goToChart = () => {
+    navigate('/alternatives');
+    setTimeout(() => {
+      document.getElementById('customs-trade')?.scrollIntoView({ behavior: 'smooth' });
+    }, 120);
+  };
+  return (
+    <button
+      onClick={goToChart}
+      className="flex items-center gap-1 text-xs text-[#467897] hover:text-[#e6edf3] transition-colors"
+    >
+      View Chart <ArrowRight size={11} />
+    </button>
   );
 }
 
@@ -144,6 +162,17 @@ export default function FundamentalsPage() {
           </div>
 
           {priceHistory.length > 0 && <PriceChart data={priceHistory} symbol={symbol} />}
+
+          {/* Alt Data teaser — only for TSMC */}
+          {symbol.toUpperCase() === 'TSM' && (
+            <div>
+              <div className="flex items-center gap-1.5 mb-2">
+                <span className="text-xs font-semibold text-[#8b949e]">ALT DATA</span>
+                <div className="flex-1 h-px bg-[#21262d]" />
+              </div>
+              <TsmcAltDataTeaser />
+            </div>
+          )}
         </div>
       )}
     </div>

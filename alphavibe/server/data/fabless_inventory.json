@@ -1,0 +1,96 @@
+[
+  {
+    "period": "2022-Q1",
+    "Apple_Mobile": 5.46,
+    "Nvidia_HPC": 2.6,
+    "Amazon_CSP": 34.99
+  },
+  {
+    "period": "2022-Q2",
+    "Apple_Mobile": 5.43,
+    "Nvidia_HPC": 3.16,
+    "Amazon_CSP": 38.15
+  },
+  {
+    "period": "2022-Q3",
+    "Apple_Mobile": 4.95,
+    "Nvidia_HPC": 3.89,
+    "Amazon_CSP": 36.65
+  },
+  {
+    "period": "2022-Q4",
+    "Apple_Mobile": 6.82,
+    "Nvidia_HPC": 4.45,
+    "Amazon_CSP": 34.41
+  },
+  {
+    "period": "2023-Q1",
+    "Apple_Mobile": 7.48,
+    "Nvidia_HPC": 5.16,
+    "Amazon_CSP": 34.17
+  },
+  {
+    "period": "2023-Q2",
+    "Nvidia_HPC": 4.61,
+    "Amazon_CSP": 36.59
+  },
+  {
+    "period": "2023-Q3",
+    "Apple_Mobile": 7.35,
+    "Nvidia_HPC": 4.32,
+    "Amazon_CSP": 35.41
+  },
+  {
+    "period": "2023-Q4",
+    "Apple_Mobile": 6.51,
+    "Nvidia_HPC": 4.78,
+    "Amazon_CSP": 33.32
+  },
+  {
+    "period": "2024-Q1",
+    "Apple_Mobile": 6.23,
+    "Nvidia_HPC": 5.28,
+    "Amazon_CSP": 31.15
+  },
+  {
+    "period": "2024-Q2",
+    "Apple_Mobile": 6.17,
+    "Nvidia_HPC": 5.86,
+    "Amazon_CSP": 34.11
+  },
+  {
+    "period": "2024-Q3",
+    "Apple_Mobile": 7.29,
+    "Nvidia_HPC": 6.67,
+    "Amazon_CSP": 36.1
+  },
+  {
+    "period": "2024-Q4",
+    "Apple_Mobile": 6.91,
+    "Nvidia_HPC": 7.65,
+    "Amazon_CSP": 34.21
+  },
+  {
+    "period": "2025-Q1",
+    "Apple_Mobile": 6.27,
+    "Nvidia_HPC": 10.08,
+    "Amazon_CSP": 35.86
+  },
+  {
+    "period": "2025-Q2",
+    "Apple_Mobile": 5.92,
+    "Nvidia_HPC": 11.33,
+    "Amazon_CSP": 40.83
+  },
+  {
+    "period": "2025-Q3",
+    "Apple_Mobile": 5.72,
+    "Nvidia_HPC": 14.96,
+    "Amazon_CSP": 41.49
+  },
+  {
+    "period": "2025-Q4",
+    "Apple_Mobile": 5.88,
+    "Nvidia_HPC": 19.78
+  }
+]

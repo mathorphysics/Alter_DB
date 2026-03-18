@@ -204,7 +204,14 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal 
                   {altData.map((m) => (
                     <div key={m.label} className="flex items-center justify-between gap-2">
                       <span className="text-[9px] text-[#8b949e] leading-tight">{m.label}</span>
-                      {m.modal ? (
+                      {m.link ? (
+                        <button
+                          onClick={() => navigate(m.link)}
+                          className="text-[9px] font-mono font-semibold flex-shrink-0 text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors"
+                        >
+                          {m.value}
+                        </button>
+                      ) : m.modal ? (
                         <button
                           onClick={() => onOpenModal?.(m.modal)}
                           className="text-[9px] font-mono font-semibold flex-shrink-0 text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors"
