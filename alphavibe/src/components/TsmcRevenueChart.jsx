@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import { TrendingUp } from 'lucide-react';
 
-const BASE = '/alt-data/v1';
+const BASE = (import.meta.env.VITE_ALTDATA_BASE ?? '') + '/alt-data/v1';
 
 const RANGES = [
   { label: '1Y', months: 12 },

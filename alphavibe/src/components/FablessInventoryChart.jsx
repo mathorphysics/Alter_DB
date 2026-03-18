@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import { Package } from 'lucide-react';
 
-const BASE = '/alt-data/v1';
+const BASE = (import.meta.env.VITE_ALTDATA_BASE ?? '') + '/alt-data/v1';
 
 const SERIES = [
   { key: 'Apple_Mobile', label: 'Apple (Mobile)',  color: '#e7cd79' },

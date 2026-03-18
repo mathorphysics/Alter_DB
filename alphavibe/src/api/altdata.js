@@ -3,7 +3,7 @@
  * Mirrors the openbb.js pattern: thin fetch wrappers, no business logic.
  */
 
-const BASE = '/alt-data/v1';
+const BASE = (import.meta.env.VITE_ALTDATA_BASE ?? '') + '/alt-data/v1';
 
 async function request(path) {
   const res = await fetch(BASE + path, { headers: { Accept: 'application/json' } });
