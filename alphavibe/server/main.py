@@ -326,8 +326,7 @@ import yfinance as yf
 @app.get("/api/v1/equity/price/quote", tags=["Equity"])
 def equity_quote(symbol: str, provider: str = "yfinance"):
     try:
-        t = yf.Ticker(symbol)
-        info = t.fast_info
+        info = yf.Ticker(symbol).fast_info
         return {"results": [{
             "symbol":     symbol.upper(),
             "last_price": getattr(info, "last_price", None),
@@ -337,15 +336,36 @@ def equity_quote(symbol: str, provider: str = "yfinance"):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/v1/equity/profile", tags=["Equity"])
+def equity_profile(symbol: str, provider: str = "yfinance"):
+    try:
+        info = yf.Ticker(symbol).info
+        return {"results": [{
+            "symbol":            symbol.upper(),
+            "name":              info.get("longName") or info.get("shortName"),
+            "sector":            info.get("sector"),
+            "industry_category": info.get("industry"),
+            "hq_country":        info.get("country"),
+            "stock_exchange":    info.get("exchange"),
+        }]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/api/v1/equity/fundamental/metrics", tags=["Equity"])
 def equity_metrics(symbol: str, provider: str = "yfinance", period: str = "annual", limit: int = 1):
     try:
         info = yf.Ticker(symbol).info
+        raw_de = info.get("debtToEquity")
         return {"results": [{
-            "symbol":        symbol.upper(),
-            "market_cap":    info.get("marketCap"),
-            "pe_ratio":      info.get("trailingPE"),
-            "profit_margin": info.get("profitMargins"),
+            "symbol":                symbol.upper(),
+            "market_cap":            info.get("marketCap"),
+            "pe_ratio":              info.get("trailingPE"),
+            "enterprise_to_ebitda":  info.get("enterpriseToEbitda"),
+            "profit_margin":         info.get("profitMargins"),
+            "revenue_growth":        info.get("revenueGrowth"),
+            "return_on_equity":      info.get("returnOnEquity"),
+            "debt_to_equity":        raw_de / 100 if raw_de is not None else None,
         }]}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -360,8 +380,7 @@ def equity_historical(
     interval: str = "1d",
 ):
     try:
-        t = yf.Ticker(symbol)
-        df = t.history(start=start_date, end=end_date, interval=interval)
+        df = yf.Ticker(symbol).history(start=start_date, end=end_date, interval=interval)
         results = [
             {
                 "date":   str(idx.date()),
@@ -369,7 +388,7 @@ def equity_historical(
                 "high":   row["High"],
                 "low":    row["Low"],
                 "close":  row["Close"],
-                "volume": row["Volume"],
+                "volume": int(row["Volume"]),
             }
             for idx, row in df.iterrows()
         ]
