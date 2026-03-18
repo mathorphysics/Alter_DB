@@ -193,7 +193,10 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal 
                     <Zap size={9} /> Alt Data
                   </span>
                   <button
-                    onClick={() => navigate('/alternatives')}
+                    onClick={() => {
+                      const firstLink = altData?.find((m) => m.link)?.link;
+                      navigate(firstLink ?? '/alternatives');
+                    }}
                     className="text-[9px] text-[#e7cd79] hover:text-[#e6edf3] flex items-center gap-0.5 transition-colors"
                   >
                     View <ExternalLink size={8} />

@@ -93,8 +93,8 @@ export default function AlternativesPage() {
         </div>
       ))}
 
-      {/* Placeholder blocks (filtered by active tag) */}
-      <AlternativeDataPanel filterTag={activeTag} />
+      {/* Placeholder blocks — only show when not filtered */}
+      {!activeTag && <AlternativeDataPanel />}
     </div>
   );
 }
