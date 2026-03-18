@@ -1,14 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/alt-data/:path*",
-      "destination": "https://YOUR_RAILWAY_URL/alt-data/:path*"
-    },
-    {
-      "source": "/api/:path*",
-      "destination": "https://YOUR_OPENBB_URL/api/:path*"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

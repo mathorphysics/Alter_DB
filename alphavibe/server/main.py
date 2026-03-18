@@ -19,7 +19,11 @@ from pydantic import BaseModel
 from fetchers.taiwan_customs import CSV_PATH, fetch_equipment_imports, fetch_equipment_trade, parse_csv, save_cache
 from fetchers.tsmc_revenue import fetch_revenue, scrape_revenue
 from fetchers.fabless_inventory import get_inventory, fetch_fabless_inventory
-from fetchers.auto_download import download_csv as _auto_download_csv
+
+try:
+    from fetchers.auto_download import download_csv as _auto_download_csv
+except ImportError:
+    _auto_download_csv = None
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
@@ -313,6 +317,38 @@ def refresh_equipment_imports():
         rows_parsed = len(data),
         date_range  = date_range,
     )
+
+
+# ── Equity endpoints (yfinance, mimics OpenBB response shape) ─────────────────
+
+import yfinance as yf
+
+@app.get("/api/v1/equity/price/quote", tags=["Equity"])
+def equity_quote(symbol: str, provider: str = "yfinance"):
+    try:
+        t = yf.Ticker(symbol)
+        info = t.fast_info
+        return {"results": [{
+            "symbol":     symbol.upper(),
+            "last_price": getattr(info, "last_price", None),
+            "prev_close": getattr(info, "previous_close", None),
+        }]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/equity/fundamental/metrics", tags=["Equity"])
+def equity_metrics(symbol: str, provider: str = "yfinance", period: str = "annual", limit: int = 1):
+    try:
+        info = yf.Ticker(symbol).info
+        return {"results": [{
+            "symbol":        symbol.upper(),
+            "market_cap":    info.get("marketCap"),
+            "pe_ratio":      info.get("trailingPE"),
+            "profit_margin": info.get("profitMargins"),
+        }]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # ── Health ────────────────────────────────────────────────────────────────────

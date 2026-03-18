@@ -1,5 +1,5 @@
-// Uses Vite dev proxy (/api → http://localhost:8000) to avoid CORS issues
-const BASE_URL = '/api/v1';
+// In production uses VITE_ALTDATA_BASE (Render); in dev uses Vite proxy → localhost:8000
+const BASE_URL = (import.meta.env.VITE_ALTDATA_BASE ?? '') + '/api/v1';
 
 // Default provider — yfinance requires no API key and works for most tickers
 const DEFAULT_PROVIDER = 'yfinance';
