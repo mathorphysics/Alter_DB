@@ -49,12 +49,17 @@ export const STAGES = [
       {
         name: 'TSMC', ticker: 'TSM', desc: '纯代工龙头，2nm 领先', flag: '🇹🇼', role: 'Pure-Play',
         altData: [
-          { label: 'Monthly Revenue',          value: 'View Chart →', delta: null, link: '/alternatives?tag=TSMC' },
-          { label: 'Equipment Imports (TW)',   value: 'View Chart →', delta: null, link: '/alternatives?tag=TSMC' },
-          { label: 'Fabless Inventory Index',  value: 'View Chart →', delta: null, link: '/alternatives?tag=TSMC' },
+          { label: 'Monthly Revenue',          value: 'View Chart →', delta: null, link: '/alternatives?tag=TSMC#tsmc-revenue' },
+          { label: 'Equipment Imports (TW)',   value: 'View Chart →', delta: null, link: '/alternatives?tag=TSMC#customs-trade' },
+          { label: 'Fabless Inventory Index',  value: 'View Chart →', delta: null, link: '/alternatives?tag=TSMC#fabless-inventory' },
         ],
       },
-      { name: 'Samsung Foundry', ticker: '005930.KS', desc: '2nm GAA 竞争者',       flag: '🇰🇷', role: 'IDM Foundry' },
+      {
+        name: 'Samsung Foundry', ticker: '005930.KS', desc: '2nm GAA 竞争者', flag: '🇰🇷', role: 'IDM Foundry',
+        altData: [
+          { label: 'Equipment Inflow (KR)', value: 'View Chart →', delta: null, link: '/alternatives?tag=Samsung#korea-equipment-inflow' },
+        ],
+      },
       { name: 'Intel IFS',       ticker: 'INTC',     desc: '英特尔代工服务',        flag: '🇺🇸', role: 'IDM Foundry' },
       { name: 'SMIC',            ticker: 'SMICY',    desc: '中国最先进代工厂',      flag: '🇨🇳', role: 'Mature Node' },
       { name: 'GlobalFoundries', ticker: 'GFS',      desc: '特色工艺代工',          flag: '🇺🇸', role: 'Specialty' },

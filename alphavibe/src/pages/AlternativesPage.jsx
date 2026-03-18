@@ -1,8 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import AlternativeDataPanel from '../components/AlternativeDataPanel';
 import CustomsTradeChart from '../components/CustomsTradeChart';
 import TsmcRevenueChart from '../components/TsmcRevenueChart';
 import FablessInventoryChart from '../components/FablessInventoryChart';
+import KoreaEquipmentChart from '../components/KoreaEquipmentChart';
 
 const TAG_META = {
   TSMC:      { color: '#34d399' },
@@ -12,14 +14,24 @@ const TAG_META = {
 };
 
 const LIVE_BLOCKS = [
-  { id: 'tsmc-revenue',      tags: ['TSMC'], Component: TsmcRevenueChart },
-  { id: 'fabless-inventory', tags: ['TSMC'], Component: FablessInventoryChart },
-  { id: 'customs-trade',     tags: ['TSMC'], Component: CustomsTradeChart },
+  { id: 'tsmc-revenue',          tags: ['TSMC'],    Component: TsmcRevenueChart },
+  { id: 'fabless-inventory',     tags: ['TSMC'],    Component: FablessInventoryChart },
+  { id: 'customs-trade',         tags: ['TSMC'],    Component: CustomsTradeChart },
+  { id: 'korea-equipment-inflow',tags: ['Samsung'], Component: KoreaEquipmentChart },
 ];
 
 export default function AlternativesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTag = searchParams.get('tag');
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const el = document.getElementById(hash.slice(1));
+    if (el) {
+      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+  }, [activeTag]);
 
   const visibleBlocks = activeTag
     ? LIVE_BLOCKS.filter((b) => b.tags.includes(activeTag))

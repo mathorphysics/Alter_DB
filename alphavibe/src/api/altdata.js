@@ -23,3 +23,8 @@ export async function fetchEquipmentImports(months = 60) {
 export async function fetchEquipmentTrade() {
   return request('/tsmc/equipment-trade');
 }
+
+/** Korea HS-848620 equipment inflow from Netherlands & USA (UN Comtrade). */
+export async function fetchKoreaEquipmentInflow() {
+  return request('/samsung/korea-equipment-inflow');
+}

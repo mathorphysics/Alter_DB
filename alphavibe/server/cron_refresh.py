@@ -40,6 +40,7 @@ from fetchers.auto_download import download_csv
 from fetchers.taiwan_customs import parse_csv, save_cache
 from fetchers.tsmc_revenue import scrape_revenue
 from fetchers.fabless_inventory import fetch_fabless_inventory
+from fetchers.comtrade_korea import fetch_korea_equipment_trade
 
 
 def main() -> int:
@@ -75,6 +76,15 @@ def main() -> int:
         logger.info("Cached %d quarters", len(data))
     except Exception as exc:
         logger.error("Fabless Inventory refresh FAILED: %s", exc, exc_info=True)
+        exit_code = 1
+
+    # ── 4. Korea HS-848620 Equipment Inflow (UN Comtrade) ─────────────────────
+    logger.info("=== Korea equipment inflow refresh started ===")
+    try:
+        data = fetch_korea_equipment_trade(months=24)
+        logger.info("Cached %d months", len(data))
+    except Exception as exc:
+        logger.error("Korea equipment refresh FAILED: %s", exc, exc_info=True)
         exit_code = 1
 
     logger.info("=== Refresh complete (exit=%d) ===", exit_code)

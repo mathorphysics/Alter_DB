@@ -19,6 +19,7 @@ from pydantic import BaseModel
 from fetchers.taiwan_customs import CSV_PATH, fetch_equipment_imports, fetch_equipment_trade, parse_csv, save_cache
 from fetchers.tsmc_revenue import fetch_revenue, scrape_revenue
 from fetchers.fabless_inventory import get_inventory, fetch_fabless_inventory
+from fetchers.comtrade_korea import get_korea_trade, fetch_korea_equipment_trade
 
 try:
     from fetchers.auto_download import download_csv as _auto_download_csv
@@ -290,6 +291,65 @@ def refresh_fabless_inventory():
         as_of       = datetime.now().strftime("%Y-%m-%d"),
         count       = len(data),
         results     = data,
+    )
+
+
+# ── GET: Korea HS-848620 equipment inflow ─────────────────────────────────────
+
+class KoreaTradePoint(BaseModel):
+    period:      str
+    label:       str
+    Netherlands: Optional[float] = None
+    USA:         Optional[float] = None
+
+class KoreaEquipmentResponse(BaseModel):
+    title:   str
+    unit:    str
+    source:  str
+    hs_code: str
+    as_of:   str
+    results: List[KoreaTradePoint]
+
+@app.get(
+    "/alt-data/v1/samsung/korea-equipment-inflow",
+    response_model=KoreaEquipmentResponse,
+    summary="Korea HS-848620 Equipment Imports from NL & USA (UN Comtrade)",
+    tags=["Alt Data — Samsung"],
+)
+def get_korea_equipment():
+    try:
+        data = get_korea_trade()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+    return KoreaEquipmentResponse(
+        title   = "Korea Semiconductor Equipment Inflow",
+        unit    = "USD Millions",
+        source  = "UN Comtrade — HS 848620",
+        hs_code = "848620",
+        as_of   = datetime.now().strftime("%Y-%m-%d"),
+        results = data,
+    )
+
+@app.post(
+    "/alt-data/v1/refresh/korea-equipment-inflow",
+    response_model=KoreaEquipmentResponse,
+    summary="Re-fetch Korea equipment inflow from UN Comtrade",
+    tags=["Alt Data — Samsung"],
+)
+def refresh_korea_equipment():
+    try:
+        data = fetch_korea_equipment_trade(months=24)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+
+    return KoreaEquipmentResponse(
+        title   = "Korea Semiconductor Equipment Inflow",
+        unit    = "USD Millions",
+        source  = "UN Comtrade — HS 848620",
+        hs_code = "848620",
+        as_of   = datetime.now().strftime("%Y-%m-%d"),
+        results = data,
     )
 
 

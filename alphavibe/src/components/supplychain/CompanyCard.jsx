@@ -209,7 +209,7 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal 
                       <span className="text-[9px] text-[#8b949e] leading-tight">{m.label}</span>
                       {m.link ? (
                         <button
-                          onClick={() => navigate(m.link)}
+                          onClick={() => { window.location.href = m.link; }}
                           className="text-[9px] font-mono font-semibold flex-shrink-0 text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors"
                         >
                           {m.value}
