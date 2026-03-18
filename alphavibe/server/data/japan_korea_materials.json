@@ -1,0 +1,146 @@
+[
+  {
+    "period": "2023-12",
+    "label": "Dec 2023",
+    "SiliconWafers": 62.03,
+    "Photoresist": 34.42
+  },
+  {
+    "period": "2024-01",
+    "label": "Jan 2024",
+    "SiliconWafers": 55.13,
+    "Photoresist": 28.3
+  },
+  {
+    "period": "2024-02",
+    "label": "Feb 2024",
+    "SiliconWafers": 34.64,
+    "Photoresist": 28.47
+  },
+  {
+    "period": "2024-03",
+    "label": "Mar 2024",
+    "SiliconWafers": 34.2,
+    "Photoresist": 29.59
+  },
+  {
+    "period": "2024-04",
+    "label": "Apr 2024",
+    "SiliconWafers": 50.24,
+    "Photoresist": 30.4
+  },
+  {
+    "period": "2024-05",
+    "label": "May 2024",
+    "SiliconWafers": 52.69,
+    "Photoresist": 25.81
+  },
+  {
+    "period": "2024-06",
+    "label": "Jun 2024",
+    "SiliconWafers": 46.78,
+    "Photoresist": 30.52
+  },
+  {
+    "period": "2024-07",
+    "label": "Jul 2024",
+    "SiliconWafers": 43.43,
+    "Photoresist": 34.81
+  },
+  {
+    "period": "2024-08",
+    "label": "Aug 2024",
+    "SiliconWafers": 52.49,
+    "Photoresist": 28.62
+  },
+  {
+    "period": "2024-09",
+    "label": "Sep 2024",
+    "SiliconWafers": 58.27,
+    "Photoresist": 28.62
+  },
+  {
+    "period": "2024-10",
+    "label": "Oct 2024",
+    "SiliconWafers": 55.55,
+    "Photoresist": 35.34
+  },
+  {
+    "period": "2024-11",
+    "label": "Nov 2024",
+    "SiliconWafers": 47.65,
+    "Photoresist": 26.64
+  },
+  {
+    "period": "2024-12",
+    "label": "Dec 2024",
+    "SiliconWafers": 52.85,
+    "Photoresist": 25.38
+  },
+  {
+    "period": "2025-01",
+    "label": "Jan 2025",
+    "SiliconWafers": 32.77,
+    "Photoresist": 24.94
+  },
+  {
+    "period": "2025-02",
+    "label": "Feb 2025",
+    "SiliconWafers": 35.5,
+    "Photoresist": 34.42
+  },
+  {
+    "period": "2025-03",
+    "label": "Mar 2025",
+    "SiliconWafers": 39.86,
+    "Photoresist": 29.78
+  },
+  {
+    "period": "2025-04",
+    "label": "Apr 2025",
+    "SiliconWafers": 68.68,
+    "Photoresist": 33.58
+  },
+  {
+    "period": "2025-05",
+    "label": "May 2025",
+    "SiliconWafers": 65.69,
+    "Photoresist": 31.98
+  },
+  {
+    "period": "2025-06",
+    "label": "Jun 2025",
+    "SiliconWafers": 56.71,
+    "Photoresist": 26.75
+  },
+  {
+    "period": "2025-07",
+    "label": "Jul 2025",
+    "SiliconWafers": 53.21,
+    "Photoresist": 36.23
+  },
+  {
+    "period": "2025-08",
+    "label": "Aug 2025",
+    "SiliconWafers": 60.09,
+    "Photoresist": 32.86
+  },
+  {
+    "period": "2025-09",
+    "label": "Sep 2025",
+    "SiliconWafers": 58.46,
+    "Photoresist": 35.77
+  },
+  {
+    "period": "2025-10",
+    "label": "Oct 2025",
+    "SiliconWafers": 59.43,
+    "Photoresist": 31.13
+  },
+  {
+    "period": "2025-11",
+    "label": "Nov 2025",
+    "SiliconWafers": 57.01,
+    "Photoresist": 33.64
+  }
+]

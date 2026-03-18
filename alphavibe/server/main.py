@@ -20,6 +20,8 @@ from fetchers.taiwan_customs import CSV_PATH, fetch_equipment_imports, fetch_equ
 from fetchers.tsmc_revenue import fetch_revenue, scrape_revenue
 from fetchers.fabless_inventory import get_inventory, fetch_fabless_inventory
 from fetchers.comtrade_korea import get_korea_trade, fetch_korea_equipment_trade
+from fetchers.comtrade_japan_materials import get_japan_materials, fetch_japan_korea_materials
+from fetchers.samsung_patents import get_patents, refresh_from_xlsx
 
 try:
     from fetchers.auto_download import download_csv as _auto_download_csv
@@ -350,6 +352,124 @@ def refresh_korea_equipment():
         hs_code = "848620",
         as_of   = datetime.now().strftime("%Y-%m-%d"),
         results = data,
+    )
+
+
+# ── GET: Japan → Korea materials flow ────────────────────────────────────────
+
+class JapanMaterialsPoint(BaseModel):
+    period:       str
+    label:        str
+    SiliconWafers: Optional[float] = None
+    Photoresist:   Optional[float] = None
+
+class JapanMaterialsResponse(BaseModel):
+    title:   str
+    unit:    str
+    source:  str
+    as_of:   str
+    results: List[JapanMaterialsPoint]
+
+@app.get(
+    "/alt-data/v1/samsung/japan-korea-materials",
+    response_model=JapanMaterialsResponse,
+    summary="Japan → Korea semiconductor materials (HS 381800 / 370790)",
+    tags=["Alt Data — Samsung"],
+)
+def get_japan_materials_endpoint():
+    try:
+        data = get_japan_materials()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+    return JapanMaterialsResponse(
+        title   = "Japan → Korea Semiconductor Materials",
+        unit    = "USD Millions",
+        source  = "UN Comtrade — HS 381800 / 370790",
+        as_of   = datetime.now().strftime("%Y-%m-%d"),
+        results = data,
+    )
+
+@app.post(
+    "/alt-data/v1/refresh/japan-korea-materials",
+    response_model=JapanMaterialsResponse,
+    summary="Re-fetch Japan→Korea materials from UN Comtrade",
+    tags=["Alt Data — Samsung"],
+)
+def refresh_japan_materials():
+    try:
+        data = fetch_japan_korea_materials(months=24)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+
+    return JapanMaterialsResponse(
+        title   = "Japan → Korea Semiconductor Materials",
+        unit    = "USD Millions",
+        source  = "UN Comtrade — HS 381800 / 370790",
+        as_of   = datetime.now().strftime("%Y-%m-%d"),
+        results = data,
+    )
+
+
+# ── GET: Samsung patent filing trend ─────────────────────────────────────────
+
+class PatentPoint(BaseModel):
+    period: str
+    label:  str
+    count:  int
+
+class SamsungPatentsResponse(BaseModel):
+    title:           str
+    source:          str
+    as_of:           str
+    count:           int
+    timeseries:      List[PatentPoint]
+    recent_advanced: List[dict]
+
+@app.get(
+    "/alt-data/v1/samsung/patents",
+    response_model=SamsungPatentsResponse,
+    summary="Samsung semiconductor patent filing trend (KIPRIS H01L)",
+    tags=["Alt Data — Samsung"],
+)
+def get_samsung_patents():
+    try:
+        data = get_patents()
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+    return SamsungPatentsResponse(
+        title           = "Samsung Semiconductor Patent Filings",
+        source          = f"KIPRIS — H01L · {data.get('source_file', '')}",
+        as_of           = datetime.now().strftime("%Y-%m-%d"),
+        count           = len(data.get("timeseries", [])),
+        timeseries      = data.get("timeseries", []),
+        recent_advanced = [],
+    )
+
+@app.post(
+    "/alt-data/v1/refresh/samsung-patents",
+    response_model=SamsungPatentsResponse,
+    summary="Re-parse latest KIPRIS xlsx from server/data/",
+    tags=["Alt Data — Samsung"],
+)
+def refresh_samsung_patents():
+    try:
+        data = refresh_from_xlsx()
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+
+    return SamsungPatentsResponse(
+        title           = "Samsung Semiconductor Patent Filings",
+        source          = f"KIPRIS — H01L · {data.get('source_file', '')}",
+        as_of           = datetime.now().strftime("%Y-%m-%d"),
+        count           = len(data.get("timeseries", [])),
+        timeseries      = data.get("timeseries", []),
+        recent_advanced = [],
     )
 
 

@@ -1,0 +1,105 @@
+{
+  "timeseries": [
+    {
+      "period": "1994",
+      "label": "1994",
+      "count": 1
+    },
+    {
+      "period": "2005",
+      "label": "2005",
+      "count": 1
+    },
+    {
+      "period": "2006",
+      "label": "2006",
+      "count": 69
+    },
+    {
+      "period": "2007",
+      "label": "2007",
+      "count": 48
+    },
+    {
+      "period": "2008",
+      "label": "2008",
+      "count": 44
+    },
+    {
+      "period": "2009",
+      "label": "2009",
+      "count": 45
+    },
+    {
+      "period": "2010",
+      "label": "2010",
+      "count": 105
+    },
+    {
+      "period": "2011",
+      "label": "2011",
+      "count": 61
+    },
+    {
+      "period": "2012",
+      "label": "2012",
+      "count": 63
+    },
+    {
+      "period": "2013",
+      "label": "2013",
+      "count": 69
+    },
+    {
+      "period": "2014",
+      "label": "2014",
+      "count": 48
+    },
+    {
+      "period": "2015",
+      "label": "2015",
+      "count": 191
+    },
+    {
+      "period": "2016",
+      "label": "2016",
+      "count": 16
+    },
+    {
+      "period": "2017",
+      "label": "2017",
+      "count": 15
+    },
+    {
+      "period": "2018",
+      "label": "2018",
+      "count": 39
+    },
+    {
+      "period": "2019",
+      "label": "2019",
+      "count": 47
+    },
+    {
+      "period": "2020",
+      "label": "2020",
+      "count": 21
+    },
+    {
+      "period": "2021",
+      "label": "2021",
+      "count": 26
+    },
+    {
+      "period": "2022",
+      "label": "2022",
+      "count": 25
+    },
+    {
+      "period": "2023",
+      "label": "2023",
+      "count": 38
+    }
+  ],
+  "source_file": "KIPRIS_검색결과_분류통계_20260318154408.xlsx"
+}

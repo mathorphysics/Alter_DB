@@ -57,7 +57,9 @@ export const STAGES = [
       {
         name: 'Samsung Foundry', ticker: '005930.KS', desc: '2nm GAA 竞争者', flag: '🇰🇷', role: 'IDM Foundry',
         altData: [
-          { label: 'Equipment Inflow (KR)', value: 'View Chart →', delta: null, link: '/alternatives?tag=Samsung#korea-equipment-inflow' },
+          { label: 'Equipment Inflow (KR)',  value: 'View Chart →', delta: null, link: '/alternatives?tag=Samsung#korea-equipment-inflow' },
+          { label: 'JP Materials Flow (KR)', value: 'View Chart →', delta: null, link: '/alternatives?tag=Samsung#japan-korea-materials' },
+          { label: 'Patent Filing Trend',    value: 'View Chart →', delta: null, link: '/alternatives?tag=Samsung#samsung-patents' },
         ],
       },
       { name: 'Intel IFS',       ticker: 'INTC',     desc: '英特尔代工服务',        flag: '🇺🇸', role: 'IDM Foundry' },

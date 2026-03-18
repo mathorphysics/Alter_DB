@@ -16,7 +16,6 @@ The script:
 
 import logging
 import sys
-from datetime import datetime
 from pathlib import Path
 
 # ── Logging to file + stdout ──────────────────────────────────────────────────
@@ -36,11 +35,13 @@ logger = logging.getLogger(__name__)
 # ── Ensure server package is importable ──────────────────────────────────────
 sys.path.insert(0, str(Path(__file__).parent))
 
-from fetchers.auto_download import download_csv
-from fetchers.taiwan_customs import parse_csv, save_cache
-from fetchers.tsmc_revenue import scrape_revenue
-from fetchers.fabless_inventory import fetch_fabless_inventory
-from fetchers.comtrade_korea import fetch_korea_equipment_trade
+from fetchers.auto_download import download_csv          # noqa: E402
+from fetchers.taiwan_customs import parse_csv, save_cache  # noqa: E402
+from fetchers.tsmc_revenue import scrape_revenue          # noqa: E402
+from fetchers.fabless_inventory import fetch_fabless_inventory  # noqa: E402
+from fetchers.comtrade_korea import fetch_korea_equipment_trade  # noqa: E402
+from fetchers.comtrade_japan_materials import fetch_japan_korea_materials  # noqa: E402
+from fetchers.samsung_patents import refresh_from_xlsx  # noqa: E402
 
 
 def main() -> int:
@@ -85,6 +86,24 @@ def main() -> int:
         logger.info("Cached %d months", len(data))
     except Exception as exc:
         logger.error("Korea equipment refresh FAILED: %s", exc, exc_info=True)
+        exit_code = 1
+
+    # ── 5. Japan → Korea materials (UN Comtrade) ──────────────────────────────
+    logger.info("=== Japan→Korea materials refresh started ===")
+    try:
+        data = fetch_japan_korea_materials(months=24)
+        logger.info("Cached %d months", len(data))
+    except Exception as exc:
+        logger.error("Japan materials refresh FAILED: %s", exc, exc_info=True)
+        exit_code = 1
+
+    # ── 6. Samsung patent filing trend (PatentsView) ──────────────────────────
+    logger.info("=== Samsung patents refresh started ===")
+    try:
+        data = fetch_samsung_patents(years=5)
+        logger.info("Cached %d months", len(data.get("timeseries", [])))
+    except Exception as exc:
+        logger.error("Samsung patents refresh FAILED: %s", exc, exc_info=True)
         exit_code = 1
 
     logger.info("=== Refresh complete (exit=%d) ===", exit_code)

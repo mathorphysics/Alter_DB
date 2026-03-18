@@ -28,3 +28,8 @@ export async function fetchEquipmentTrade() {
 export async function fetchKoreaEquipmentInflow() {
   return request('/samsung/korea-equipment-inflow');
 }
+
+/** Japan → Korea semiconductor materials: silicon wafers + photoresist (UN Comtrade). */
+export async function fetchJapanKoreaMaterials() {
+  return request('/samsung/japan-korea-materials');
+}

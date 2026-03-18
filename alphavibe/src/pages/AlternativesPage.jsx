@@ -5,6 +5,8 @@ import CustomsTradeChart from '../components/CustomsTradeChart';
 import TsmcRevenueChart from '../components/TsmcRevenueChart';
 import FablessInventoryChart from '../components/FablessInventoryChart';
 import KoreaEquipmentChart from '../components/KoreaEquipmentChart';
+import JapanMaterialsChart from '../components/JapanMaterialsChart';
+import SamsungPatentChart from '../components/SamsungPatentChart';
 
 const TAG_META = {
   TSMC:      { color: '#34d399' },
@@ -17,7 +19,9 @@ const LIVE_BLOCKS = [
   { id: 'tsmc-revenue',          tags: ['TSMC'],    Component: TsmcRevenueChart },
   { id: 'fabless-inventory',     tags: ['TSMC'],    Component: FablessInventoryChart },
   { id: 'customs-trade',         tags: ['TSMC'],    Component: CustomsTradeChart },
-  { id: 'korea-equipment-inflow',tags: ['Samsung'], Component: KoreaEquipmentChart },
+  { id: 'korea-equipment-inflow',   tags: ['Samsung'], Component: KoreaEquipmentChart },
+  { id: 'japan-korea-materials',    tags: ['Samsung'], Component: JapanMaterialsChart },
+  { id: 'samsung-patents',          tags: ['Samsung'], Component: SamsungPatentChart },
 ];
 
 export default function AlternativesPage() {
