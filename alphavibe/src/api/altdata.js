@@ -53,3 +53,8 @@ export async function fetchTsmcRevenue() {
 export async function fetchTaiwanEquipmentImports() {
   return request('/tsmc/equipment-imports');
 }
+
+/** FRED macroeconomic indicators (5 series). */
+export async function fetchFredMacro() {
+  return request('/macro/fred');
+}

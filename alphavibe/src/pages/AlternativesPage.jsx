@@ -9,12 +9,13 @@ import JapanMaterialsChart from '../components/JapanMaterialsChart';
 import SamsungPatentChart from '../components/SamsungPatentChart';
 import IntelEquipmentChart from '../components/IntelEquipmentChart';
 import IntelChipsChart from '../components/IntelChipsChart';
+import FredMacroPanel from '../components/FredMacroPanel';
 
 const TAG_META = {
   TSMC:      { color: '#34d399' },
   Samsung:   { color: '#467897' },
   Intel:     { color: '#a78bfa' },
-  Logistics: { color: '#fb923c' },
+  Macro:     { color: '#e7cd79' },
 };
 
 const LIVE_BLOCKS = [
@@ -26,6 +27,7 @@ const LIVE_BLOCKS = [
   { id: 'samsung-patents',          tags: ['Samsung'], Component: SamsungPatentChart },
   { id: 'intel-oregon-equipment',   tags: ['Intel'],   Component: IntelEquipmentChart },
   { id: 'intel-chips-funding',      tags: ['Intel'],   Component: IntelChipsChart },
+  { id: 'fred-macro',               tags: ['Macro'],   Component: FredMacroPanel },
 ];
 
 export default function AlternativesPage() {

@@ -44,6 +44,7 @@ from fetchers.comtrade_japan_materials import fetch_japan_korea_materials  # noq
 from fetchers.samsung_patents import refresh_from_xlsx  # noqa: E402
 from fetchers.census_intel_oregon import fetch_intel_oregon_equipment  # noqa: E402
 from fetchers.usaspending_intel import fetch_intel_federal_funding     # noqa: E402
+from fetchers.fred import fetch_fred_macro                            # noqa: E402
 
 
 def main() -> int:
@@ -130,6 +131,16 @@ def main() -> int:
         )
     except Exception as exc:
         logger.error("Intel CHIPS funding refresh FAILED: %s", exc, exc_info=True)
+        exit_code = 1
+
+    # ── 9. FRED macro indicators ───────────────────────────────────────────────
+    logger.info("=== FRED macro indicators refresh started ===")
+    try:
+        data = fetch_fred_macro()
+        series_count = sum(1 for k, v in data.items() if isinstance(v, dict) and "observations" in v)
+        logger.info("Cached %d FRED series", series_count)
+    except Exception as exc:
+        logger.error("FRED macro refresh FAILED: %s", exc, exc_info=True)
         exit_code = 1
 
     logger.info("=== Refresh complete (exit=%d) ===", exit_code)

@@ -24,6 +24,7 @@ from fetchers.comtrade_japan_materials import get_japan_materials, fetch_japan_k
 from fetchers.samsung_patents import get_patents, refresh_from_xlsx
 from fetchers.census_intel_oregon import get_intel_oregon, fetch_intel_oregon_equipment
 from fetchers.usaspending_intel import get_intel_funding, fetch_intel_federal_funding
+from fetchers.fred import get_fred_macro, fetch_fred_macro
 
 try:
     from fetchers.auto_download import download_csv as _auto_download_csv
@@ -619,6 +620,27 @@ class IntelFundingResponse(BaseModel):
     api_note:               str
     live_awards:            List[IntelAward]
 
+class FredObservation(BaseModel):
+    date:  str
+    value: float
+
+class FredSeries(BaseModel):
+    id:           str
+    label:        str
+    unit:         str
+    description:  str
+    observations: List[FredObservation]
+    error:        Optional[str] = None
+
+class FredMacroResponse(BaseModel):
+    as_of:                str
+    capacity_utilization: FredSeries
+    industrial_production: FredSeries
+    durable_goods_orders:              FredSeries
+    mfg_employment:       FredSeries
+    pce_durables:         FredSeries
+
+
 @app.get(
     "/alt-data/v1/intel/chips-act-funding",
     response_model=IntelFundingResponse,
@@ -644,6 +666,34 @@ def refresh_intel_chips_funding():
     except Exception as e:
         raise HTTPException(status_code=502, detail=str(e)) from e
     return data
+
+
+@app.get(
+    "/alt-data/v1/macro/fred",
+    response_model=FredMacroResponse,
+    summary="FRED Macro Indicators — Semiconductor & Manufacturing",
+    tags=["Alt Data — Macro"],
+)
+def get_macro_fred():
+    try:
+        data = get_fred_macro()
+    except EnvironmentError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+    return data
+
+@app.post(
+    "/alt-data/v1/refresh/macro-fred",
+    summary="Refresh FRED macro cache",
+    tags=["Alt Data — Macro"],
+)
+def refresh_macro_fred():
+    try:
+        data = fetch_fred_macro()
+        return {"message": "FRED macro cache refreshed", "as_of": data.get("as_of")}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 # ── Equity endpoints (yfinance, mimics OpenBB response shape) ─────────────────

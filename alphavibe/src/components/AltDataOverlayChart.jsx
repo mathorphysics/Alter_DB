@@ -25,6 +25,7 @@ import {
   fetchEquipmentTrade,
   fetchKoreaEquipmentInflow,
   fetchJapanKoreaMaterials,
+  fetchFredMacro,
 } from '../api/altdata';
 import { mergeTimeSeries, xTickInterval, today, daysAgo } from '../utils/timeSeries';
 
@@ -201,6 +202,44 @@ const ALT_CATALOG = [
   },
 
   // ── ASML: 无买方侧数据 ─────────────────────────────────────────────────────
+
+  // ── FRED Macro (global — shown for every ticker) ──────────────────────────
+  {
+    key:         'fred-capacity',
+    label:       'Semicon. Capacity Utilization',
+    unit:        '%',
+    granularity: 'monthly',
+    chartType:   'line',
+    tickers:     [],
+    global:      true,
+    color:       '#e7cd79',
+    fetch:       fetchFredMacro,
+    extract:     (r) => (r.capacity_utilization?.observations ?? []).map((p) => ({ date: p.date, value: p.value })),
+  },
+  {
+    key:         'fred-ip',
+    label:       'Industrial Production Index',
+    unit:        'Idx',
+    granularity: 'monthly',
+    chartType:   'line',
+    tickers:     [],
+    global:      true,
+    color:       '#34d399',
+    fetch:       fetchFredMacro,
+    extract:     (r) => (r.industrial_production?.observations ?? []).map((p) => ({ date: p.date, value: p.value })),
+  },
+  {
+    key:         'fred-durables',
+    label:       'Durable Goods New Orders',
+    unit:        '$B',
+    granularity: 'monthly',
+    chartType:   'line',
+    tickers:     [],
+    global:      true,
+    color:       '#a78bfa',
+    fetch:       fetchFredMacro,
+    extract:     (r) => (r.durable_goods_orders?.observations ?? []).map((p) => ({ date: p.date, value: +(p.value / 1000).toFixed(1) })),
+  },
 ];
 
 // ── Time range options ────────────────────────────────────────────────────────
@@ -311,7 +350,7 @@ export default function AltDataOverlayChart() {
   }, [activeKeys]);
 
   // Available alt series for current ticker
-  const availableSeries = ALT_CATALOG.filter((d) => d.tickers.includes(ticker));
+  const availableSeries = ALT_CATALOG.filter((d) => d.global || d.tickers.includes(ticker));
   const activeSeries    = availableSeries.filter((d) => activeKeys.includes(d.key));
 
   // Build merged dataset
@@ -539,7 +578,7 @@ export default function AltDataOverlayChart() {
           <div className="flex-1 overflow-y-auto p-3" style={{ maxHeight: 420 }}>
             <div className="text-[10px] text-[var(--muted)] uppercase tracking-wider mb-2 px-1">Ticker</div>
             {TICKER_STAGES.map(({ stage, color, tickers }) => {
-              const hasSignal = (v) => ALT_CATALOG.some((d) => d.tickers.includes(v));
+              const hasSignal = (v) => ALT_CATALOG.some((d) => d.global || d.tickers.includes(v));
               return (
                 <div key={stage} className="mb-3">
                   {/* Stage label */}
@@ -607,33 +646,47 @@ export default function AltDataOverlayChart() {
             {/* Alt data checkboxes */}
             <div>
               <div className="text-[10px] text-[var(--muted)] uppercase tracking-wider mb-1.5">Alt Signals</div>
-              {availableSeries.length === 0 ? (
-                <div className="text-[10px] text-[var(--muted)] italic">No signals for {ticker}</div>
-              ) : (
-                <div className="space-y-1.5">
-                  {availableSeries.map((s, idx) => {
+              <div className="space-y-1.5">
+                {/* Ticker-specific signals */}
+                {availableSeries.filter((s) => !s.global).length === 0 ? (
+                  <div className="text-[10px] text-[var(--muted)] italic">No signals for {ticker}</div>
+                ) : (
+                  availableSeries.filter((s) => !s.global).map((s, idx) => {
                     const active = activeKeys.includes(s.key);
                     const color  = SERIES_COLORS[idx % SERIES_COLORS.length];
                     return (
                       <label key={s.key} className="flex items-start gap-2 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={active}
+                        <input type="checkbox" checked={active}
                           onChange={() => dispatch({ type: 'TOGGLE_KEY', key: s.key })}
-                          className="mt-0.5 flex-shrink-0 accent-violet-400"
-                        />
+                          className="mt-0.5 flex-shrink-0 accent-violet-400" />
                         <div className="flex-1 min-w-0">
-                          <div className="text-[11px] leading-tight"
-                               style={{ color: active ? color : 'var(--muted)' }}>
-                            {s.label}
-                          </div>
+                          <div className="text-[11px] leading-tight" style={{ color: active ? color : 'var(--muted)' }}>{s.label}</div>
+                          <div className="text-[9px] text-[var(--muted)]">{s.granularity} · {s.unit}</div>
+                        </div>
+                      </label>
+                    );
+                  })
+                )}
+
+                {/* FRED Macro (global) */}
+                <div className="pt-1.5 mt-0.5 border-t border-[var(--border)]">
+                  <div className="text-[9px] text-[#e7cd79] uppercase tracking-wider mb-1 font-medium">Macro (FRED)</div>
+                  {availableSeries.filter((s) => s.global).map((s) => {
+                    const active = activeKeys.includes(s.key);
+                    return (
+                      <label key={s.key} className="flex items-start gap-2 cursor-pointer mb-1.5">
+                        <input type="checkbox" checked={active}
+                          onChange={() => dispatch({ type: 'TOGGLE_KEY', key: s.key })}
+                          className="mt-0.5 flex-shrink-0 accent-violet-400" />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-[11px] leading-tight" style={{ color: active ? s.color : 'var(--muted)' }}>{s.label}</div>
                           <div className="text-[9px] text-[var(--muted)]">{s.granularity} · {s.unit}</div>
                         </div>
                       </label>
                     );
                   })}
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
