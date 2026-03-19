@@ -43,3 +43,13 @@ export async function fetchIntelOregonEquipment() {
 export async function fetchIntelChipsFunding() {
   return request('/intel/chips-act-funding');
 }
+
+/** TSMC monthly revenue (NT$ Millions). */
+export async function fetchTsmcRevenue() {
+  return request('/tsmc/monthly-revenue');
+}
+
+/** Taiwan HS-8486 equipment import monthly series. */
+export async function fetchTaiwanEquipmentImports() {
+  return request('/tsmc/equipment-imports');
+}
