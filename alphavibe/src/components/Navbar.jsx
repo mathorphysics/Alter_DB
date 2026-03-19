@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { label: 'Fundamentals',      to: '/fundamentals' },
   { label: 'Alternatives',      to: '/alternatives' },
   { label: 'Financial Analysis',to: '/financial-analysis' },
+  { label: 'Semi 101',          to: '/semiconductor-101' },
 ];
 
 export default function Navbar() {

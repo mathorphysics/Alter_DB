@@ -7,6 +7,7 @@ import FundamentalsPage from './pages/FundamentalsPage';
 import AlternativesPage from './pages/AlternativesPage';
 import SupplyChainPage from './pages/SupplyChainPage';
 import FinancialAnalysisPage from './pages/FinancialAnalysisPage';
+import Semiconductor101Page from './pages/Semiconductor101Page';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
               <Route path="/alternatives" element={<AlternativesPage />} />
               <Route path="/supply-chain" element={<SupplyChainPage />} />
               <Route path="/financial-analysis" element={<FinancialAnalysisPage />} />
+              <Route path="/semiconductor-101" element={<Semiconductor101Page />} />
             </Routes>
           </main>
 
