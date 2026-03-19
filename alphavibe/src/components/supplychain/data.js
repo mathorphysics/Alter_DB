@@ -62,7 +62,12 @@ export const STAGES = [
           { label: 'Patent Filing Trend',    value: 'View Chart →', delta: null, link: '/alternatives?tag=Samsung#samsung-patents' },
         ],
       },
-      { name: 'Intel IFS',       ticker: 'INTC',     desc: '英特尔代工服务',        flag: '🇺🇸', role: 'IDM Foundry' },
+      {
+        name: 'Intel IFS', ticker: 'INTC', desc: '英特尔代工服务', flag: '🇺🇸', role: 'IDM Foundry',
+        altData: [
+          { label: 'ASML Equipment Inflow (OR)', value: 'View Chart →', delta: null, link: '/alternatives?tag=Intel#intel-oregon-equipment' },
+        ],
+      },
       { name: 'SMIC',            ticker: 'SMICY',    desc: '中国最先进代工厂',      flag: '🇨🇳', role: 'Mature Node' },
       { name: 'GlobalFoundries', ticker: 'GFS',      desc: '特色工艺代工',          flag: '🇺🇸', role: 'Specialty' },
     ],

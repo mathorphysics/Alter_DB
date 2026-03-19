@@ -1,0 +1,326 @@
+[
+  {
+    "period": "2023-03",
+    "label": "Mar 2023",
+    "value": 21.65,
+    "air_val": 21.65,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2023-04",
+    "label": "Apr 2023",
+    "value": 0.02,
+    "air_val": 0.02,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2023-05",
+    "label": "May 2023",
+    "value": 30.85,
+    "air_val": 30.85,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2023-06",
+    "label": "Jun 2023",
+    "value": 0.57,
+    "air_val": 0.57,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2023-07",
+    "label": "Jul 2023",
+    "value": 16.4,
+    "air_val": 16.4,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2023-08",
+    "label": "Aug 2023",
+    "value": 0.55,
+    "air_val": 0.55,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2023-09",
+    "label": "Sep 2023",
+    "value": 0.21,
+    "air_val": 0.21,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2023-10",
+    "label": "Oct 2023",
+    "value": 0.02,
+    "air_val": 0.02,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2023-11",
+    "label": "Nov 2023",
+    "value": 38.54,
+    "air_val": 38.54,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2023-12",
+    "label": "Dec 2023",
+    "value": 0.2,
+    "air_val": 0.2,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-01",
+    "label": "Jan 2024",
+    "value": 48.41,
+    "air_val": 48.41,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-02",
+    "label": "Feb 2024",
+    "value": 0.37,
+    "air_val": 0.37,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-03",
+    "label": "Mar 2024",
+    "value": 0.0,
+    "air_val": 0.0,
+    "ves_val": 0.0,
+    "air_pct": null,
+    "flagged": false
+  },
+  {
+    "period": "2024-04",
+    "label": "Apr 2024",
+    "value": 34.27,
+    "air_val": 34.27,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-05",
+    "label": "May 2024",
+    "value": 3.07,
+    "air_val": 3.07,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-06",
+    "label": "Jun 2024",
+    "value": 0.05,
+    "air_val": 0.05,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-07",
+    "label": "Jul 2024",
+    "value": 0.12,
+    "air_val": 0.12,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-08",
+    "label": "Aug 2024",
+    "value": 0.11,
+    "air_val": 0.11,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-09",
+    "label": "Sep 2024",
+    "value": 14.51,
+    "air_val": 14.51,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-10",
+    "label": "Oct 2024",
+    "value": 17.5,
+    "air_val": 17.5,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-11",
+    "label": "Nov 2024",
+    "value": 16.84,
+    "air_val": 16.84,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2024-12",
+    "label": "Dec 2024",
+    "value": 49.76,
+    "air_val": 49.76,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2025-01",
+    "label": "Jan 2025",
+    "value": 269.58,
+    "air_val": 269.58,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": true
+  },
+  {
+    "period": "2025-02",
+    "label": "Feb 2025",
+    "value": 0.0,
+    "air_val": 0.0,
+    "ves_val": 0.0,
+    "air_pct": null,
+    "flagged": false
+  },
+  {
+    "period": "2025-03",
+    "label": "Mar 2025",
+    "value": 108.48,
+    "air_val": 108.48,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": true
+  },
+  {
+    "period": "2025-04",
+    "label": "Apr 2025",
+    "value": 90.34,
+    "air_val": 90.34,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": true
+  },
+  {
+    "period": "2025-05",
+    "label": "May 2025",
+    "value": 3.43,
+    "air_val": 3.43,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2025-06",
+    "label": "Jun 2025",
+    "value": 223.99,
+    "air_val": 223.99,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": true
+  },
+  {
+    "period": "2025-07",
+    "label": "Jul 2025",
+    "value": 24.24,
+    "air_val": 24.24,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2025-08",
+    "label": "Aug 2025",
+    "value": 90.41,
+    "air_val": 90.41,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": true
+  },
+  {
+    "period": "2025-09",
+    "label": "Sep 2025",
+    "value": 67.58,
+    "air_val": 67.58,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": true
+  },
+  {
+    "period": "2025-10",
+    "label": "Oct 2025",
+    "value": 0.16,
+    "air_val": 0.16,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2025-11",
+    "label": "Nov 2025",
+    "value": 0.01,
+    "air_val": 0.01,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": false
+  },
+  {
+    "period": "2025-12",
+    "label": "Dec 2025",
+    "value": 110.29,
+    "air_val": 110.29,
+    "ves_val": 0.0,
+    "air_pct": 100.0,
+    "flagged": true
+  },
+  {
+    "period": "2026-01",
+    "label": "Jan 2026",
+    "value": 0.0,
+    "air_val": 0.0,
+    "ves_val": 0.0,
+    "air_pct": null,
+    "flagged": false
+  },
+  {
+    "period": "2026-02",
+    "label": "Feb 2026",
+    "value": 0.0,
+    "air_val": 0.0,
+    "ves_val": 0.0,
+    "air_pct": null,
+    "flagged": false
+  }
+]

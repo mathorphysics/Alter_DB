@@ -22,6 +22,7 @@ from fetchers.fabless_inventory import get_inventory, fetch_fabless_inventory
 from fetchers.comtrade_korea import get_korea_trade, fetch_korea_equipment_trade
 from fetchers.comtrade_japan_materials import get_japan_materials, fetch_japan_korea_materials
 from fetchers.samsung_patents import get_patents, refresh_from_xlsx
+from fetchers.census_intel_oregon import get_intel_oregon, fetch_intel_oregon_equipment
 
 try:
     from fetchers.auto_download import download_csv as _auto_download_csv
@@ -504,6 +505,76 @@ def refresh_equipment_imports():
         csv_file    = csv_path.name,
         rows_parsed = len(data),
         date_range  = date_range,
+    )
+
+
+# ── GET: Intel Oregon HS-848620 equipment inflow ─────────────────────────────
+
+class IntelOregonPoint(BaseModel):
+    period:  str
+    label:   str
+    value:   float              # USD Millions (GEN_VAL_MO)
+    air_val: float              # Air freight portion (USD M)
+    ves_val: float              # Vessel portion (USD M)
+    air_pct: Optional[float]    # % of value shipped by air
+    flagged: bool               # Possible High-NA EUV delivery
+
+class IntelOregonResponse(BaseModel):
+    title:       str
+    unit:        str
+    source:      str
+    hs_code:     str
+    description: str
+    as_of:       str
+    count:       int
+    results:     List[IntelOregonPoint]
+
+@app.get(
+    "/alt-data/v1/intel/oregon-equipment-inflow",
+    response_model=IntelOregonResponse,
+    summary="Netherlands → Oregon HS-848620 Equipment Imports (US Census statehs)",
+    tags=["Alt Data — Intel"],
+)
+def get_intel_oregon_endpoint():
+    try:
+        data = get_intel_oregon()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+    return IntelOregonResponse(
+        title       = "ASML → Intel D1X Equipment Inflow (Oregon)",
+        unit        = "USD Millions",
+        source      = "US Census Bureau — statehs · HTS 848620",
+        hs_code     = "848620",
+        description = "Monthly semiconductor equipment imports from Netherlands to Oregon. "
+                      "Proxy for ASML EUV/High-NA deliveries to Intel D1X (Hillsboro, OR). "
+                      "100% air freight share confirms precision instrument shipments.",
+        as_of       = datetime.now().strftime("%Y-%m-%d"),
+        count       = len(data),
+        results     = data,
+    )
+
+@app.post(
+    "/alt-data/v1/refresh/intel-oregon-equipment",
+    response_model=IntelOregonResponse,
+    summary="Re-fetch Intel Oregon equipment data from US Census Bureau API",
+    tags=["Alt Data — Intel"],
+)
+def refresh_intel_oregon():
+    try:
+        data = fetch_intel_oregon_equipment(months=36)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+
+    return IntelOregonResponse(
+        title       = "ASML → Intel D1X Equipment Inflow (Oregon)",
+        unit        = "USD Millions",
+        source      = "US Census Bureau — statehs · HTS 848620",
+        hs_code     = "848620",
+        description = "Monthly semiconductor equipment imports from Netherlands to Oregon.",
+        as_of       = datetime.now().strftime("%Y-%m-%d"),
+        count       = len(data),
+        results     = data,
     )
 
 

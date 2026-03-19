@@ -33,3 +33,8 @@ export async function fetchKoreaEquipmentInflow() {
 export async function fetchJapanKoreaMaterials() {
   return request('/samsung/japan-korea-materials');
 }
+
+/** Netherlands → Oregon HS-848620 equipment imports (US Census statehs). Proxy for ASML → Intel D1X deliveries. */
+export async function fetchIntelOregonEquipment() {
+  return request('/intel/oregon-equipment-inflow');
+}
