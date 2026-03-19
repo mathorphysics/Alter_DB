@@ -23,6 +23,7 @@ from fetchers.comtrade_korea import get_korea_trade, fetch_korea_equipment_trade
 from fetchers.comtrade_japan_materials import get_japan_materials, fetch_japan_korea_materials
 from fetchers.samsung_patents import get_patents, refresh_from_xlsx
 from fetchers.census_intel_oregon import get_intel_oregon, fetch_intel_oregon_equipment
+from fetchers.usaspending_intel import get_intel_funding, fetch_intel_federal_funding
 
 try:
     from fetchers.auto_download import download_csv as _auto_download_csv
@@ -576,6 +577,73 @@ def refresh_intel_oregon():
         count       = len(data),
         results     = data,
     )
+
+
+# ── GET: Intel CHIPS Act Federal Funding ──────────────────────────────────────
+
+class ChipsMilestone(BaseModel):
+    date:        str
+    event:       str
+    amount_b:    Optional[float]
+    recipient:   str
+    agency:      str
+    status:      str
+    description: str
+    source:      str
+
+class IntelAward(BaseModel):
+    award_id:       str
+    recipient:      str
+    action_date:    str
+    amount_usd:     float
+    outlays_usd:    float
+    funding_agency: str
+    sub_agency:     str
+    award_type:     str
+    cfda:           str
+    description:    str
+    state:          str
+    data_source:    str
+
+class IntelFundingResponse(BaseModel):
+    as_of:                  str
+    chips_act_date:         str
+    chips_grant_signed_b:   Optional[float]
+    chips_grant_date:       Optional[str]
+    chips_milestones:       List[ChipsMilestone]
+    usaspending_count:      int
+    usaspending_total_b:    float
+    usaspending_outlays_b:  float
+    dod_total_b:            float
+    commerce_total_b:       float
+    api_note:               str
+    live_awards:            List[IntelAward]
+
+@app.get(
+    "/alt-data/v1/intel/chips-act-funding",
+    response_model=IntelFundingResponse,
+    summary="Intel CHIPS Act Federal Funding — USAspending API + static milestone ledger",
+    tags=["Alt Data — Intel"],
+)
+def get_intel_chips_funding():
+    try:
+        data = get_intel_funding()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+    return data
+
+@app.post(
+    "/alt-data/v1/refresh/intel-chips-funding",
+    response_model=IntelFundingResponse,
+    summary="Re-fetch Intel federal awards from USAspending.gov",
+    tags=["Alt Data — Intel"],
+)
+def refresh_intel_chips_funding():
+    try:
+        data = fetch_intel_federal_funding()
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+    return data
 
 
 # ── Equity endpoints (yfinance, mimics OpenBB response shape) ─────────────────

@@ -8,6 +8,7 @@ import KoreaEquipmentChart from '../components/KoreaEquipmentChart';
 import JapanMaterialsChart from '../components/JapanMaterialsChart';
 import SamsungPatentChart from '../components/SamsungPatentChart';
 import IntelEquipmentChart from '../components/IntelEquipmentChart';
+import IntelChipsChart from '../components/IntelChipsChart';
 
 const TAG_META = {
   TSMC:      { color: '#34d399' },
@@ -24,6 +25,7 @@ const LIVE_BLOCKS = [
   { id: 'japan-korea-materials',    tags: ['Samsung'], Component: JapanMaterialsChart },
   { id: 'samsung-patents',          tags: ['Samsung'], Component: SamsungPatentChart },
   { id: 'intel-oregon-equipment',   tags: ['Intel'],   Component: IntelEquipmentChart },
+  { id: 'intel-chips-funding',      tags: ['Intel'],   Component: IntelChipsChart },
 ];
 
 export default function AlternativesPage() {

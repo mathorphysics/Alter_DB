@@ -43,6 +43,7 @@ from fetchers.comtrade_korea import fetch_korea_equipment_trade  # noqa: E402
 from fetchers.comtrade_japan_materials import fetch_japan_korea_materials  # noqa: E402
 from fetchers.samsung_patents import refresh_from_xlsx  # noqa: E402
 from fetchers.census_intel_oregon import fetch_intel_oregon_equipment  # noqa: E402
+from fetchers.usaspending_intel import fetch_intel_federal_funding     # noqa: E402
 
 
 def main() -> int:
@@ -115,6 +116,20 @@ def main() -> int:
         logger.info("Cached %d months  (%d flagged as possible EUV delivery)", len(data), flagged)
     except Exception as exc:
         logger.error("Intel Oregon refresh FAILED: %s", exc, exc_info=True)
+        exit_code = 1
+
+    # ── 8. Intel CHIPS Act Federal Funding (USAspending + milestone ledger) ──────
+    logger.info("=== Intel CHIPS Act funding refresh started ===")
+    try:
+        data = fetch_intel_federal_funding()
+        logger.info(
+            "Cached %d live awards ($%.1fM) + %d CHIPS milestones",
+            data["usaspending_count"],
+            data["usaspending_total_b"] * 1000,
+            len(data["chips_milestones"]),
+        )
+    except Exception as exc:
+        logger.error("Intel CHIPS funding refresh FAILED: %s", exc, exc_info=True)
         exit_code = 1
 
     logger.info("=== Refresh complete (exit=%d) ===", exit_code)

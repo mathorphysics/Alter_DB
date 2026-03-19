@@ -66,6 +66,7 @@ export const STAGES = [
         name: 'Intel IFS', ticker: 'INTC', desc: '英特尔代工服务', flag: '🇺🇸', role: 'IDM Foundry',
         altData: [
           { label: 'ASML Equipment Inflow (OR)', value: 'View Chart →', delta: null, link: '/alternatives?tag=Intel#intel-oregon-equipment' },
+          { label: 'CHIPS Act Funding',          value: 'View Chart →', delta: null, link: '/alternatives?tag=Intel#intel-chips-funding' },
         ],
       },
       { name: 'SMIC',            ticker: 'SMICY',    desc: '中国最先进代工厂',      flag: '🇨🇳', role: 'Mature Node' },

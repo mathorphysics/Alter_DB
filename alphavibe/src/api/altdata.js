@@ -38,3 +38,8 @@ export async function fetchJapanKoreaMaterials() {
 export async function fetchIntelOregonEquipment() {
   return request('/intel/oregon-equipment-inflow');
 }
+
+/** Intel CHIPS Act federal funding — USAspending live awards + static CHIPS milestone ledger. */
+export async function fetchIntelChipsFunding() {
+  return request('/intel/chips-act-funding');
+}
