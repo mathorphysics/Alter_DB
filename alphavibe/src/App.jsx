@@ -29,7 +29,7 @@ export default function App() {
               SemiResearch · Powered by OpenBB Platform
             </span>
             <span className="text-xs text-[#484f58]">
-              Data: localhost:8000 · Not financial advice
+              Not financial advice
             </span>
           </div>
         </footer>
