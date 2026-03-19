@@ -52,8 +52,8 @@ export default function AlternativesPage() {
       {/* Header + tag filter pills */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h2 className="text-base font-semibold text-[#e6edf3] mb-1">Alternative Data</h2>
-          <p className="text-sm text-[#8b949e]">
+          <h2 className="text-base font-semibold text-[var(--fg)] mb-1">Alternative Data</h2>
+          <p className="text-sm text-[var(--sub)]">
             Proprietary signal feeds — satellite imagery, customs flow, shipping chokepoints.
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function AlternativesPage() {
                 style={
                   isActive
                     ? { background: `${color}20`, color, borderColor: `${color}60` }
-                    : { background: 'transparent', color: '#484f58', borderColor: '#21262d' }
+                    : { background: 'transparent', color: 'var(--muted)', borderColor: 'var(--border)' }
                 }
               >
                 {name}
@@ -79,7 +79,7 @@ export default function AlternativesPage() {
           {activeTag && (
             <button
               onClick={() => setSearchParams({})}
-              className="px-2 py-0.5 text-[10px] rounded font-medium text-[#484f58] hover:text-[#8b949e] transition-colors border border-transparent"
+              className="px-2 py-0.5 text-[10px] rounded font-medium text-[var(--muted)] hover:text-[var(--sub)] transition-colors border border-transparent"
             >
               × Clear
             </button>
@@ -89,7 +89,7 @@ export default function AlternativesPage() {
 
       {/* Section header when a tag filter is active */}
       {activeTag && activeColor && (
-        <div className="flex items-center gap-2 pb-2 border-b border-[#21262d]">
+        <div className="flex items-center gap-2 pb-2 border-b border-[var(--border)]">
           <span
             className="px-2 py-0.5 text-[11px] rounded font-semibold border"
             style={{
@@ -100,7 +100,7 @@ export default function AlternativesPage() {
           >
             {activeTag}
           </span>
-          <span className="text-xs text-[#484f58]">
+          <span className="text-xs text-[var(--muted)]">
             {visibleBlocks.length} live signal{visibleBlocks.length !== 1 ? 's' : ''}
           </span>
         </div>

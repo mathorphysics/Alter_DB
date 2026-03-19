@@ -254,15 +254,15 @@ function OverlayTooltip({ active, payload, label, activeSeries }) {
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload ?? {};
   return (
-    <div className="bg-[#1c2128] border border-[#21262d] rounded-lg px-3 py-2.5 shadow-xl text-xs min-w-[160px]">
-      <div className="text-[#8b949e] mb-2 font-medium">{label}</div>
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg px-3 py-2.5 shadow-xl text-xs min-w-[160px]">
+      <div className="text-[var(--sub)] mb-2 font-medium">{label}</div>
       {row.price != null && (
         <div className="flex items-center gap-2 mb-1">
           <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: PRICE_COLOR }} />
           <span className="font-mono font-semibold" style={{ color: PRICE_COLOR }}>
             ${Number(row.price).toFixed(2)}
           </span>
-          <span className="text-[#8b949e]">price</span>
+          <span className="text-[var(--sub)]">price</span>
         </div>
       )}
       {activeSeries.map((s) =>
@@ -271,7 +271,7 @@ function OverlayTooltip({ active, payload, label, activeSeries }) {
             <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: s.color }} />
             <span className="font-mono font-semibold" style={{ color: s.color }}>
               {Number(row[s.key]).toLocaleString('en-US', { maximumFractionDigits: 1 })}
-              <span className="text-[#8b949e] font-normal ml-1">{s.unit}</span>
+              <span className="text-[var(--sub)] font-normal ml-1">{s.unit}</span>
             </span>
           </div>
         ) : null
@@ -354,16 +354,16 @@ export default function AltDataOverlayChart() {
   };
 
   return (
-    <div className="bg-[#161b22] border border-[#21262d] rounded-lg overflow-hidden">
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg overflow-hidden">
       {/* ── Header ── */}
-      <div className="flex items-center gap-2 px-4 pt-4 pb-3 border-b border-[#21262d]">
+      <div className="flex items-center gap-2 px-4 pt-4 pb-3 border-b border-[var(--border)]">
         <div className="w-6 h-6 rounded flex items-center justify-center"
              style={{ background: PRICE_COLOR + '20', border: `1px solid ${PRICE_COLOR}40` }}>
           <BarChart2 size={12} style={{ color: PRICE_COLOR }} />
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-[#e6edf3]">Alt Data × Stock Price Overlay</h3>
-          <p className="text-[11px] text-[#8b949e]">
+          <h3 className="text-sm font-semibold text-[var(--fg)]">Alt Data × Stock Price Overlay</h3>
+          <p className="text-[11px] text-[var(--sub)]">
             Multi-granularity signal alignment — daily price vs. monthly / event alt data
           </p>
         </div>
@@ -383,16 +383,16 @@ export default function AltDataOverlayChart() {
             return (
               <div className="flex items-center gap-4 mb-3">
                 <div>
-                  <span className="text-[10px] text-[#8b949e]">{ticker}</span>
+                  <span className="text-[10px] text-[var(--sub)]">{ticker}</span>
                   <div className="text-sm font-mono font-bold" style={{ color: PRICE_COLOR }}>
                     ${last.price?.toFixed(2)}
                   </div>
                 </div>
                 {chg != null && (
                   <>
-                    <div className="w-px h-6 bg-[#21262d]" />
+                    <div className="w-px h-6 bg-[var(--border)]" />
                     <div>
-                      <span className="text-[10px] text-[#8b949e]">{range.label} return</span>
+                      <span className="text-[10px] text-[var(--sub)]">{range.label} return</span>
                       <div className={`text-sm font-mono font-semibold ${chg >= 0 ? 'text-[#34d399]' : 'text-red-400'}`}>
                         {chg >= 0 ? '+' : ''}{chg.toFixed(1)}%
                       </div>
@@ -403,11 +403,11 @@ export default function AltDataOverlayChart() {
                   const vals = chartData.map((r) => r[s.key]).filter((v) => v != null);
                   const latest = vals[vals.length - 1];
                   return latest != null ? (
-                    <div key={s.key} className="w-px h-6 bg-[#21262d]" />,
+                    <div key={s.key} className="w-px h-6 bg-[var(--border)]" />,
                     <div key={s.key + '_v'}>
-                      <span className="text-[10px] text-[#8b949e]">{s.label}</span>
+                      <span className="text-[10px] text-[var(--sub)]">{s.label}</span>
                       <div className="text-sm font-mono font-semibold" style={{ color: s.color }}>
-                        {Number(latest).toFixed(1)}<span className="text-[10px] text-[#484f58] ml-0.5">{s.unit}</span>
+                        {Number(latest).toFixed(1)}<span className="text-[10px] text-[var(--muted)] ml-0.5">{s.unit}</span>
                       </div>
                     </div>
                   ) : null;
@@ -418,23 +418,23 @@ export default function AltDataOverlayChart() {
 
           {/* Chart area */}
           {stockError && (
-            <div className="flex items-center justify-center h-72 text-xs text-[#8b949e]">
+            <div className="flex items-center justify-center h-72 text-xs text-[var(--sub)]">
               {stockError}
             </div>
           )}
           {stockLoading && (
-            <div className="flex items-center justify-center h-72 text-xs text-[#484f58]">
+            <div className="flex items-center justify-center h-72 text-xs text-[var(--muted)]">
               Loading prices…
             </div>
           )}
           {!stockLoading && !stockError && chartData.length > 0 && (
             <ResponsiveContainer width="100%" height={300}>
               <ComposedChart data={chartData} margin={{ top: 4, right: 16, bottom: 0, left: 0 }}>
-                <CartesianGrid strokeDasharray="2 4" stroke="#21262d" vertical={false} />
+                <CartesianGrid strokeDasharray="2 4" stroke="var(--border)" vertical={false} />
 
                 <XAxis
                   dataKey="date"
-                  tick={{ fontSize: 10, fill: '#484f58' }}
+                  tick={{ fontSize: 10, fill: 'var(--muted)' }}
                   tickLine={false}
                   axisLine={false}
                   interval={tickEvery}
@@ -446,7 +446,7 @@ export default function AltDataOverlayChart() {
                   yAxisId="left"
                   orientation="left"
                   domain={[priceMin, priceMax]}
-                  tick={{ fontSize: 10, fill: '#484f58' }}
+                  tick={{ fontSize: 10, fill: 'var(--muted)' }}
                   tickLine={false}
                   axisLine={false}
                   width={54}
@@ -459,7 +459,7 @@ export default function AltDataOverlayChart() {
                     yAxisId="right"
                     orientation="right"
                     domain={[0, altMax]}
-                    tick={{ fontSize: 10, fill: '#484f58' }}
+                    tick={{ fontSize: 10, fill: 'var(--muted)' }}
                     tickLine={false}
                     axisLine={false}
                     width={52}
@@ -469,7 +469,7 @@ export default function AltDataOverlayChart() {
 
                 <Tooltip
                   content={<OverlayTooltip activeSeries={activeSeries} />}
-                  cursor={{ stroke: '#30363d', strokeWidth: 1 }}
+                  cursor={{ stroke: 'var(--border2)', strokeWidth: 1 }}
                 />
 
                 {/* Alt data series */}
@@ -483,7 +483,7 @@ export default function AltDataOverlayChart() {
                       stroke={s.color}
                       strokeWidth={1.5}
                       dot={{ r: 3, fill: s.color, strokeWidth: 0 }}
-                      activeDot={{ r: 4, fill: s.color, stroke: '#0d1117', strokeWidth: 1.5 }}
+                      activeDot={{ r: 4, fill: s.color, stroke: 'var(--bg)', strokeWidth: 1.5 }}
                       connectNulls={true}
                       isAnimationActive={false}
                     />
@@ -509,7 +509,7 @@ export default function AltDataOverlayChart() {
                   dot={false}
                   isAnimationActive={false}
                   connectNulls={false}
-                  activeDot={{ r: 3, fill: PRICE_COLOR, stroke: '#0d1117', strokeWidth: 2 }}
+                  activeDot={{ r: 3, fill: PRICE_COLOR, stroke: 'var(--bg)', strokeWidth: 2 }}
                 />
               </ComposedChart>
             </ResponsiveContainer>
@@ -520,12 +520,12 @@ export default function AltDataOverlayChart() {
             <div className="flex items-center gap-4 mt-2 flex-wrap">
               <div className="flex items-center gap-1.5">
                 <span className="w-5 border-t-2 flex-shrink-0" style={{ borderColor: PRICE_COLOR }} />
-                <span className="text-[10px] text-[#8b949e]">Stock Price (L)</span>
+                <span className="text-[10px] text-[var(--sub)]">Stock Price (L)</span>
               </div>
               {activeSeries.map((s) => (
                 <div key={s.key} className="flex items-center gap-1.5">
                   <span className="w-5 border-t-2 flex-shrink-0" style={{ borderColor: s.color }} />
-                  <span className="text-[10px] text-[#8b949e]">{s.label} (R)</span>
+                  <span className="text-[10px] text-[var(--sub)]">{s.label} (R)</span>
                 </div>
               ))}
             </div>
@@ -533,11 +533,11 @@ export default function AltDataOverlayChart() {
         </div>
 
         {/* ── Right: Slicer ── */}
-        <div className="w-52 flex-shrink-0 border-l border-[#21262d] flex flex-col">
+        <div className="w-52 flex-shrink-0 border-l border-[var(--border)] flex flex-col">
 
           {/* ── Ticker scroll list ── */}
           <div className="flex-1 overflow-y-auto p-3" style={{ maxHeight: 420 }}>
-            <div className="text-[10px] text-[#484f58] uppercase tracking-wider mb-2 px-1">Ticker</div>
+            <div className="text-[10px] text-[var(--muted)] uppercase tracking-wider mb-2 px-1">Ticker</div>
             {TICKER_STAGES.map(({ stage, color, tickers }) => {
               const hasSignal = (v) => ALT_CATALOG.some((d) => d.tickers.includes(v));
               return (
@@ -564,10 +564,10 @@ export default function AltDataOverlayChart() {
                       >
                         <div className="flex-1 min-w-0">
                           <div className="text-[11px] font-medium leading-tight truncate"
-                               style={{ color: active ? color : '#8b949e' }}>
+                               style={{ color: active ? color : 'var(--sub)' }}>
                             {t.label}
                           </div>
-                          <div className="text-[9px] text-[#484f58]">{t.sub}</div>
+                          <div className="text-[9px] text-[var(--muted)]">{t.sub}</div>
                         </div>
                         {hasAlt && (
                           <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[#34d399]" title="Alt data available" />
@@ -581,11 +581,11 @@ export default function AltDataOverlayChart() {
           </div>
 
           {/* ── Time range + Alt signals (fixed bottom) ── */}
-          <div className="border-t border-[#21262d] p-3 space-y-4">
+          <div className="border-t border-[var(--border)] p-3 space-y-4">
 
             {/* Time range */}
             <div>
-              <div className="text-[10px] text-[#484f58] uppercase tracking-wider mb-1.5">Time Range</div>
+              <div className="text-[10px] text-[var(--muted)] uppercase tracking-wider mb-1.5">Time Range</div>
               <div className="flex gap-1">
                 {RANGES.map((r, i) => (
                   <button
@@ -595,7 +595,7 @@ export default function AltDataOverlayChart() {
                     style={
                       rangeIdx === i
                         ? { background: PRICE_COLOR + '20', color: PRICE_COLOR, border: `1px solid ${PRICE_COLOR}40` }
-                        : { background: '#0d1117', color: '#484f58', border: '1px solid #21262d' }
+                        : { background: 'var(--bg)', color: 'var(--muted)', border: '1px solid var(--border)' }
                     }
                   >
                     {r.label}
@@ -606,9 +606,9 @@ export default function AltDataOverlayChart() {
 
             {/* Alt data checkboxes */}
             <div>
-              <div className="text-[10px] text-[#484f58] uppercase tracking-wider mb-1.5">Alt Signals</div>
+              <div className="text-[10px] text-[var(--muted)] uppercase tracking-wider mb-1.5">Alt Signals</div>
               {availableSeries.length === 0 ? (
-                <div className="text-[10px] text-[#484f58] italic">No signals for {ticker}</div>
+                <div className="text-[10px] text-[var(--muted)] italic">No signals for {ticker}</div>
               ) : (
                 <div className="space-y-1.5">
                   {availableSeries.map((s, idx) => {
@@ -624,10 +624,10 @@ export default function AltDataOverlayChart() {
                         />
                         <div className="flex-1 min-w-0">
                           <div className="text-[11px] leading-tight"
-                               style={{ color: active ? color : '#484f58' }}>
+                               style={{ color: active ? color : 'var(--muted)' }}>
                             {s.label}
                           </div>
-                          <div className="text-[9px] text-[#484f58]">{s.granularity} · {s.unit}</div>
+                          <div className="text-[9px] text-[var(--muted)]">{s.granularity} · {s.unit}</div>
                         </div>
                       </label>
                     );

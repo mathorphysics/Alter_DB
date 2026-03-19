@@ -55,21 +55,21 @@ export default function AlternativeDataPanel({ filterTag }) {
   if (items.length === 0) return null;
 
   return (
-    <div className="bg-[#161b22] border border-[#21262d] rounded-lg p-4">
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-4">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Database size={14} className="text-[#467897]" />
-          <h3 className="text-sm font-semibold text-[#e6edf3]">Coming Soon</h3>
+          <h3 className="text-sm font-semibold text-[var(--fg)]">Coming Soon</h3>
           <span className="px-1.5 py-0.5 text-[10px] bg-[#e7cd79]/10 border border-[#e7cd79]/30 text-[#e7cd79] rounded font-medium">
             ALPHA
           </span>
         </div>
-        <button className="text-[10px] text-[#467897] hover:text-[#e6edf3] transition-colors flex items-center gap-1">
+        <button className="text-[10px] text-[#467897] hover:text-[var(--fg)] transition-colors flex items-center gap-1">
           Configure <ArrowRight size={10} />
         </button>
       </div>
 
-      <p className="text-xs text-[#8b949e] mb-4 leading-relaxed">
+      <p className="text-xs text-[var(--sub)] mb-4 leading-relaxed">
         Proprietary signal feeds will appear here once connected. Below are previews of planned integrations.
       </p>
 
@@ -79,7 +79,7 @@ export default function AlternativeDataPanel({ filterTag }) {
           return (
             <div
               key={item.id}
-              className="group relative p-3.5 rounded-lg border border-[#21262d] bg-[#0d1117]/50 hover:border-[#30363d] transition-all duration-200 overflow-hidden"
+              className="group relative p-3.5 rounded-lg border border-[var(--border)] bg-[var(--bg)]/50 hover:border-[var(--border2)] transition-all duration-200 overflow-hidden"
             >
               {/* Decorative glow */}
               <div
@@ -98,7 +98,7 @@ export default function AlternativeDataPanel({ filterTag }) {
                     >
                       <Icon size={12} style={{ color: item.color }} />
                     </div>
-                    <span className="text-xs font-medium text-[#e6edf3] leading-tight">{item.title}</span>
+                    <span className="text-xs font-medium text-[var(--fg)] leading-tight">{item.title}</span>
                   </div>
                 </div>
 
@@ -114,11 +114,11 @@ export default function AlternativeDataPanel({ filterTag }) {
                   ))}
                 </div>
 
-                <p className="text-[11px] text-[#8b949e] leading-relaxed mb-3">{item.desc}</p>
+                <p className="text-[11px] text-[var(--sub)] leading-relaxed mb-3">{item.desc}</p>
 
                 <div className="flex items-end justify-between">
                   <div>
-                    <div className="text-base font-semibold font-mono text-[#e6edf3]/40">{item.mockValue}</div>
+                    <div className="text-base font-semibold font-mono text-[var(--fg)]/40">{item.mockValue}</div>
                     <div className={`text-[10px] font-medium ${item.mockUp ? 'text-[#467897]/60' : 'text-red-400/60'}`}>
                       {item.mockDelta}
                     </div>
@@ -126,8 +126,8 @@ export default function AlternativeDataPanel({ filterTag }) {
                   <MockSparkline up={item.mockUp} />
                 </div>
 
-                <div className="mt-2.5 pt-2.5 border-t border-[#21262d] flex items-center justify-between">
-                  <span className="text-[10px] text-[#484f58] italic">{item.badge}</span>
+                <div className="mt-2.5 pt-2.5 border-t border-[var(--border)] flex items-center justify-between">
+                  <span className="text-[10px] text-[var(--muted)] italic">{item.badge}</span>
                   <button
                     className="text-[10px] px-2 py-0.5 rounded border transition-all"
                     style={{

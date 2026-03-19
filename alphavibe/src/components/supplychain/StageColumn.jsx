@@ -40,8 +40,8 @@ export default function StageColumn({ stage, index, onOpenModal, expandAll }) {
             <Icon size={13} style={{ color }} />
           </div>
           <div className="min-w-0">
-            <div className="text-[11px] font-bold text-[#e6edf3] leading-tight">{label}</div>
-            <div className="text-[9px] text-[#8b949e] leading-tight truncate">{subtitle}</div>
+            <div className="text-[11px] font-bold text-[var(--fg)] leading-tight">{label}</div>
+            <div className="text-[9px] text-[var(--sub)] leading-tight truncate">{subtitle}</div>
           </div>
         </div>
 

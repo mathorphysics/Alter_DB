@@ -23,8 +23,8 @@ function Skeleton() {
     <div className="space-y-2 mt-1">
       {[...Array(3)].map((_, i) => (
         <div key={i} className="flex justify-between">
-          <div className="h-2 w-14 rounded bg-white/5 animate-pulse" />
-          <div className="h-2 w-10 rounded bg-white/5 animate-pulse" />
+          <div className="h-2 w-14 rounded bg-[var(--border)] animate-pulse" />
+          <div className="h-2 w-10 rounded bg-[var(--border)] animate-pulse" />
         </div>
       ))}
     </div>
@@ -65,8 +65,8 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal,
     <div
       className="rounded-lg border transition-colors duration-200 overflow-hidden"
       style={{
-        background: open ? `${stageColor}0a` : 'rgba(22,27,34,0.55)',
-        borderColor: open ? `${stageColor}38` : 'rgba(255,255,255,0.06)',
+        background: open ? `${stageColor}18` : `${stageColor}0d`,
+        borderColor: open ? `${stageColor}38` : `${stageColor}28`,
         backdropFilter: 'blur(10px)',
       }}
     >
@@ -79,7 +79,7 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal,
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[11px] font-semibold text-[#e6edf3] leading-tight">
+            <span className="text-[11px] font-semibold text-[var(--fg)] leading-tight">
               {company.name}
             </span>
             <span
@@ -89,7 +89,7 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal,
               {company.ticker}
             </span>
           </div>
-          <p className="text-[10px] text-[#8b949e] truncate mt-0.5 leading-tight">
+          <p className="text-[10px] text-[var(--sub)] truncate mt-0.5 leading-tight">
             {company.desc}
           </p>
         </div>
@@ -97,7 +97,7 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal,
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="flex-shrink-0 text-[#484f58] group-hover:text-[#8b949e] transition-colors"
+          className="flex-shrink-0 text-[var(--muted)] group-hover:text-[var(--sub)] transition-colors"
         >
           <ChevronDown size={12} />
         </motion.div>
@@ -140,7 +140,7 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal,
                   </span>
                   <button
                     onClick={() => navigate(`/fundamentals?ticker=${company.ticker}`)}
-                    className="text-[9px] text-[#467897] hover:text-[#e6edf3] flex items-center gap-0.5 transition-colors"
+                    className="text-[9px] text-[#467897] hover:text-[var(--fg)] flex items-center gap-0.5 transition-colors"
                   >
                     View <ExternalLink size={8} />
                   </button>
@@ -157,13 +157,13 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal,
                       { label: 'Net Margin', value: fmt(fundData?.metrics?.profit_margin,    'pct')   },
                     ].map(({ label, value }) => (
                       <div key={label}>
-                        <div className="text-[8px] text-[#484f58] mb-px">{label}</div>
-                        <div className="text-[10px] font-mono font-semibold text-[#e6edf3]">{value}</div>
+                        <div className="text-[8px] text-[var(--muted)] mb-px">{label}</div>
+                        <div className="text-[10px] font-mono font-semibold text-[var(--fg)]">{value}</div>
                       </div>
                     ))}
 
                     {changePercent != null && (
-                      <div className="col-span-2 flex items-center gap-1 pt-0.5 border-t border-white/5 mt-0.5">
+                      <div className="col-span-2 flex items-center gap-1 pt-0.5 border-t border-[var(--border)] mt-0.5">
                         {changePercent >= 0
                           ? <TrendingUp  size={9} className="text-emerald-400" />
                           : <TrendingDown size={9} className="text-red-400" />}
@@ -174,7 +174,7 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal,
                     )}
 
                     {!fundData?.quote && !fundData?.metrics && (
-                      <p className="col-span-2 text-[9px] text-[#484f58]">
+                      <p className="col-span-2 text-[9px] text-[var(--muted)]">
                         Data unavailable for {company.ticker}
                       </p>
                     )}
@@ -199,7 +199,7 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal,
                       const firstLink = altData?.find((m) => m.link)?.link;
                       navigate(firstLink ?? '/alternatives');
                     }}
-                    className="text-[9px] text-[#e7cd79] hover:text-[#e6edf3] flex items-center gap-0.5 transition-colors"
+                    className="text-[9px] text-[#e7cd79] hover:text-[var(--fg)] flex items-center gap-0.5 transition-colors"
                   >
                     View <ExternalLink size={8} />
                   </button>
@@ -208,7 +208,7 @@ export default function CompanyCard({ company, stageColor, altData, onOpenModal,
                 <div className="space-y-1.5">
                   {altData.map((m) => (
                     <div key={m.label} className="flex items-center justify-between gap-2">
-                      <span className="text-[9px] text-[#8b949e] leading-tight">{m.label}</span>
+                      <span className="text-[9px] text-[var(--sub)] leading-tight">{m.label}</span>
                       {m.link ? (
                         <button
                           onClick={() => { window.location.href = m.link; }}

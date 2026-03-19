@@ -22,8 +22,8 @@ function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   const val = payload[0]?.value;
   return (
-    <div className="bg-[#1c2128] border border-[#21262d] rounded-lg px-3 py-2 shadow-xl text-xs">
-      <div className="text-[#8b949e] mb-1">{label}</div>
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg px-3 py-2 shadow-xl text-xs">
+      <div className="text-[var(--sub)] mb-1">{label}</div>
       <div className="text-[#e7cd79] font-mono font-semibold text-sm">
         ${Number(val).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
       </div>
@@ -54,16 +54,16 @@ export default function PriceChart({ data, symbol }) {
   const fillColorStart = isUp ? 'rgba(70,120,151,0.25)' : 'rgba(248,113,113,0.2)';
 
   return (
-    <div className="bg-[#161b22] border border-[#21262d] rounded-lg p-4">
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-4">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-sm font-semibold text-[#e6edf3]">
-            {symbol} <span className="text-[#8b949e] font-normal">Price History</span>
+          <h3 className="text-sm font-semibold text-[var(--fg)]">
+            {symbol} <span className="text-[var(--sub)] font-normal">Price History</span>
           </h3>
-          <p className="text-xs text-[#8b949e] mt-0.5">{filteredData.length} trading sessions</p>
+          <p className="text-xs text-[var(--sub)] mt-0.5">{filteredData.length} trading sessions</p>
         </div>
 
-        <div className="flex items-center gap-1 bg-[#0d1117] rounded-md p-0.5 border border-[#21262d]">
+        <div className="flex items-center gap-1 bg-[var(--bg)] rounded-md p-0.5 border border-[var(--border)]">
           {RANGES.map((r, i) => (
             <button
               key={r.label}
@@ -71,7 +71,7 @@ export default function PriceChart({ data, symbol }) {
               className={`px-2.5 py-1 text-xs rounded transition-all ${
                 i === rangeIdx
                   ? 'bg-[#467897]/20 text-[#467897] font-medium'
-                  : 'text-[#8b949e] hover:text-[#e6edf3]'
+                  : 'text-[var(--sub)] hover:text-[var(--fg)]'
               }`}
             >
               {r.label}
@@ -81,7 +81,7 @@ export default function PriceChart({ data, symbol }) {
       </div>
 
       {filteredData.length === 0 ? (
-        <div className="h-56 flex items-center justify-center text-sm text-[#8b949e]">
+        <div className="h-56 flex items-center justify-center text-sm text-[var(--sub)]">
           No data available for this range
         </div>
       ) : (
@@ -98,11 +98,11 @@ export default function PriceChart({ data, symbol }) {
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray="2 4" stroke="#21262d" vertical={false} />
+            <CartesianGrid strokeDasharray="2 4" stroke="var(--border)" vertical={false} />
 
             <XAxis
               dataKey="date"
-              tick={{ fontSize: 10, fill: '#484f58' }}
+              tick={{ fontSize: 10, fill: 'var(--muted)' }}
               tickLine={false}
               axisLine={false}
               tickFormatter={(val) => {
@@ -114,7 +114,7 @@ export default function PriceChart({ data, symbol }) {
 
             <YAxis
               domain={[minPrice * 0.97, maxPrice * 1.03]}
-              tick={{ fontSize: 10, fill: '#484f58' }}
+              tick={{ fontSize: 10, fill: 'var(--muted)' }}
               tickLine={false}
               axisLine={false}
               width={56}
@@ -128,7 +128,7 @@ export default function PriceChart({ data, symbol }) {
             {firstPrice && (
               <ReferenceLine
                 y={firstPrice}
-                stroke="#8b949e"
+                stroke="var(--sub)"
                 strokeDasharray="3 3"
                 strokeWidth={1}
               />
@@ -141,7 +141,7 @@ export default function PriceChart({ data, symbol }) {
               strokeWidth={1.5}
               fill={`url(#${fillId})`}
               dot={false}
-              activeDot={{ r: 4, fill: strokeColor, stroke: '#0d1117', strokeWidth: 2 }}
+              activeDot={{ r: 4, fill: strokeColor, stroke: 'var(--bg)', strokeWidth: 2 }}
             />
           </AreaChart>
         </ResponsiveContainer>

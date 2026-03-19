@@ -20,7 +20,7 @@ function CustomTooltip({ active, payload, label }) {
         backdropFilter: 'blur(12px)',
       }}
     >
-      <p className="text-[#8b949e] mb-0.5">{label}</p>
+      <p className="text-[var(--sub)] mb-0.5">{label}</p>
       <p className="font-semibold font-mono text-emerald-400">
         ${value != null ? value.toLocaleString(undefined, { maximumFractionDigits: 1 }) : '—'}M
       </p>
@@ -64,7 +64,7 @@ function Stats({ data }) {
           className="rounded-lg px-3 py-2.5 text-center"
           style={{ background: 'rgba(52,211,153,0.06)', border: '1px solid rgba(52,211,153,0.12)' }}
         >
-          <p className="text-[9px] uppercase tracking-widest text-[#8b949e] mb-1">{label}</p>
+          <p className="text-[9px] uppercase tracking-widest text-[var(--sub)] mb-1">{label}</p>
           <p className="text-sm font-bold font-mono text-emerald-400">{value}</p>
         </div>
       ))}
@@ -153,20 +153,20 @@ export default function AlternativeDataModal({ open, onClose }) {
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <TrendingUp size={14} className="text-emerald-400" />
-                    <h3 className="text-sm font-bold text-[#e6edf3]">
+                    <h3 className="text-sm font-bold text-[var(--fg)]">
                       Taiwan Semiconductor Equipment Imports
                     </h3>
                   </div>
-                  <p className="text-[10px] text-[#484f58] leading-relaxed">
+                  <p className="text-[10px] text-[var(--muted)] leading-relaxed">
                     HS Code 8486 · Monthly · USD Millions ·{' '}
-                    <span className="text-[#8b949e]">
+                    <span className="text-[var(--sub)]">
                       Source: Taiwan Customs Administration (關務署)
                     </span>
                   </p>
                 </div>
                 <button
                   onClick={onClose}
-                  className="flex-shrink-0 text-[#484f58] hover:text-[#e6edf3] transition-colors ml-4 mt-0.5 rounded-md p-1 hover:bg-white/5"
+                  className="flex-shrink-0 text-[var(--muted)] hover:text-[var(--fg)] transition-colors ml-4 mt-0.5 rounded-md p-1 hover:bg-white/5"
                 >
                   <X size={14} />
                 </button>
@@ -175,7 +175,7 @@ export default function AlternativeDataModal({ open, onClose }) {
               {/* Body */}
               <div className="px-5 pb-5">
                 {loading && (
-                  <div className="flex items-center justify-center py-16 gap-2 text-[#8b949e] text-xs">
+                  <div className="flex items-center justify-center py-16 gap-2 text-[var(--sub)] text-xs">
                     <Loader2 size={14} className="animate-spin text-emerald-400" />
                     Loading import data…
                   </div>
@@ -189,8 +189,8 @@ export default function AlternativeDataModal({ open, onClose }) {
                     <AlertCircle size={13} className="text-red-400 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-red-400 font-medium mb-0.5">Failed to load data</p>
-                      <p className="text-[#8b949e]">{error}</p>
-                      <p className="text-[#484f58] mt-1 text-[10px]">
+                      <p className="text-[var(--sub)]">{error}</p>
+                      <p className="text-[var(--muted)] mt-1 text-[10px]">
                         Ensure the FastAPI server is running on port 3001 and a CSV has been uploaded.
                       </p>
                     </div>
@@ -225,14 +225,14 @@ export default function AlternativeDataModal({ open, onClose }) {
                             dataKey="label"
                             tickLine={false}
                             axisLine={false}
-                            tick={{ fill: '#484f58', fontSize: 9 }}
+                            tick={{ fill: 'var(--muted)', fontSize: 9 }}
                             tickFormatter={makeTickX(data)}
                           />
 
                           <YAxis
                             tickLine={false}
                             axisLine={false}
-                            tick={{ fill: '#484f58', fontSize: 9 }}
+                            tick={{ fill: 'var(--muted)', fontSize: 9 }}
                             tickFormatter={tickY}
                             width={42}
                           />
@@ -247,7 +247,7 @@ export default function AlternativeDataModal({ open, onClose }) {
                               label={{
                                 value: 'Avg',
                                 position: 'insideTopRight',
-                                fill: '#484f58',
+                                fill: 'var(--muted)',
                                 fontSize: 8,
                               }}
                             />
@@ -267,12 +267,12 @@ export default function AlternativeDataModal({ open, onClose }) {
                     </div>
 
                     {/* Footer metadata */}
-                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-[#21262d]">
-                      <span className="text-[9px] text-[#484f58]">
+                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-[var(--border)]">
+                      <span className="text-[9px] text-[var(--muted)]">
                         {data.length} monthly observations ·{' '}
                         {data[0]?.label} – {data[data.length - 1]?.label}
                       </span>
-                      <span className="text-[9px] text-[#484f58]">
+                      <span className="text-[9px] text-[var(--muted)]">
                         Values in USD millions
                       </span>
                     </div>

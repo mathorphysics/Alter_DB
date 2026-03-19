@@ -17,13 +17,13 @@ function EmptyState() {
       <div className="w-16 h-16 rounded-full bg-[#467897]/10 border border-[#467897]/20 flex items-center justify-center mb-4">
         <TrendingUp size={28} className="text-[#467897]/60" />
       </div>
-      <h2 className="text-lg font-semibold text-[#e6edf3] mb-2">Search a ticker to begin</h2>
-      <p className="text-sm text-[#8b949e] mb-6 max-w-sm">
+      <h2 className="text-lg font-semibold text-[var(--fg)] mb-2">Search a ticker to begin</h2>
+      <p className="text-sm text-[var(--sub)] mb-6 max-w-sm">
         Enter any equity symbol to load price data, fundamentals, and key ratios.
       </p>
       <div className="flex flex-wrap gap-2 justify-center">
         {EXAMPLES.map((t) => (
-          <span key={t} className="px-2.5 py-1 bg-[#161b22] border border-[#21262d] rounded text-xs text-[#8b949e] font-mono">
+          <span key={t} className="px-2.5 py-1 bg-[var(--surface)] border border-[var(--border)] rounded text-xs text-[var(--sub)] font-mono">
             {t}
           </span>
         ))}
@@ -43,7 +43,7 @@ function TsmcAltDataTeaser() {
   return (
     <button
       onClick={goToChart}
-      className="flex items-center gap-1 text-xs text-[#467897] hover:text-[#e6edf3] transition-colors"
+      className="flex items-center gap-1 text-xs text-[#467897] hover:text-[var(--fg)] transition-colors"
     >
       View Chart <ArrowRight size={11} />
     </button>
@@ -167,8 +167,8 @@ export default function FundamentalsPage() {
           {symbol.toUpperCase() === 'TSM' && (
             <div>
               <div className="flex items-center gap-1.5 mb-2">
-                <span className="text-xs font-semibold text-[#8b949e]">ALT DATA</span>
-                <div className="flex-1 h-px bg-[#21262d]" />
+                <span className="text-xs font-semibold text-[var(--sub)]">ALT DATA</span>
+                <div className="flex-1 h-px bg-[var(--border)]" />
               </div>
               <TsmcAltDataTeaser />
             </div>

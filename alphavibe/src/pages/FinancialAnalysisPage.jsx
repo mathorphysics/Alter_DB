@@ -32,8 +32,8 @@ export default function FinancialAnalysisPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-base font-semibold text-[#e6edf3] mb-1">Financial Analysis</h2>
-        <p className="text-sm text-[#8b949e]">
+        <h2 className="text-base font-semibold text-[var(--fg)] mb-1">Financial Analysis</h2>
+        <p className="text-sm text-[var(--sub)]">
           Deep-dive financial modeling tools — valuation, comps, earnings intelligence.
         </p>
       </div>
@@ -46,7 +46,7 @@ export default function FinancialAnalysisPage() {
           return (
             <div
               key={item.title}
-              className="p-5 bg-[#161b22] border border-[#21262d] rounded-lg hover:border-[#30363d] transition-colors"
+              className="p-5 bg-[var(--surface)] border border-[var(--border)] rounded-lg hover:border-[var(--border2)] transition-colors"
             >
               <div className="flex items-center gap-3 mb-3">
                 <div
@@ -55,11 +55,11 @@ export default function FinancialAnalysisPage() {
                 >
                   <Icon size={15} style={{ color: item.color }} />
                 </div>
-                <p className="text-sm font-semibold text-[#e6edf3]">{item.title}</p>
+                <p className="text-sm font-semibold text-[var(--fg)]">{item.title}</p>
               </div>
-              <p className="text-xs text-[#8b949e] leading-relaxed mb-4">{item.desc}</p>
+              <p className="text-xs text-[var(--sub)] leading-relaxed mb-4">{item.desc}</p>
               <div className="flex items-center justify-between">
-                <span className="text-[10px] text-[#484f58] italic">Coming Soon</span>
+                <span className="text-[10px] text-[var(--muted)] italic">Coming Soon</span>
                 <button
                   className="text-[10px] px-2.5 py-1 rounded border transition-all hover:opacity-80"
                   style={{ borderColor: `${item.color}40`, color: item.color }}

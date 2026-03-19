@@ -29,8 +29,8 @@ function CustomTooltip({ active, payload, label }) {
   if (!d) return null;
 
   return (
-    <div className="bg-[#1c2128] border border-[#21262d] rounded-lg px-3 py-2.5 shadow-xl text-xs min-w-[180px]">
-      <div className="text-[#8b949e] mb-2 font-medium">{label}</div>
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg px-3 py-2.5 shadow-xl text-xs min-w-[180px]">
+      <div className="text-[var(--sub)] mb-2 font-medium">{label}</div>
 
       <div className="flex items-center gap-2 mb-1">
         <span className="w-2 h-2 rounded-sm flex-shrink-0"
@@ -38,12 +38,12 @@ function CustomTooltip({ active, payload, label }) {
         <span className="font-mono font-semibold" style={{ color: d.flagged ? FLAG_COLOR : INTEL_COLOR }}>
           ${Number(d.value).toLocaleString('en-US', { maximumFractionDigits: 1 })}M
         </span>
-        <span className="text-[#8b949e]">customs value</span>
+        <span className="text-[var(--sub)]">customs value</span>
       </div>
 
       {d.air_pct != null && (
-        <div className="text-[#484f58] mt-1">
-          Air freight: <span className="text-[#8b949e] font-mono">{d.air_pct}%</span>
+        <div className="text-[var(--muted)] mt-1">
+          Air freight: <span className="text-[var(--sub)] font-mono">{d.air_pct}%</span>
         </div>
       )}
 
@@ -84,7 +84,7 @@ export default function IntelEquipmentChart({ compact = false }) {
   const chartHeight = compact ? 160 : 240;
 
   return (
-    <div className="bg-[#161b22] border border-[#21262d] rounded-lg p-4">
+    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -93,11 +93,11 @@ export default function IntelEquipmentChart({ compact = false }) {
             <TrendingUp size={12} style={{ color: INTEL_COLOR }} />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-[#e6edf3]">
+            <h3 className="text-sm font-semibold text-[var(--fg)]">
               ASML → Intel D1X Equipment Inflow
             </h3>
             {!compact && (
-              <p className="text-[11px] text-[#8b949e]">
+              <p className="text-[11px] text-[var(--sub)]">
                 Netherlands → Oregon HS-848620 imports · US Census statehs · USD Millions
               </p>
             )}
@@ -111,7 +111,7 @@ export default function IntelEquipmentChart({ compact = false }) {
           </span>
         </div>
 
-        <div className="flex items-center gap-1 bg-[#0d1117] rounded-md p-0.5 border border-[#21262d]">
+        <div className="flex items-center gap-1 bg-[var(--bg)] rounded-md p-0.5 border border-[var(--border)]">
           {RANGES.map((r, i) => (
             <button
               key={r.label}
@@ -119,7 +119,7 @@ export default function IntelEquipmentChart({ compact = false }) {
               className={`px-2 py-0.5 text-[11px] rounded transition-all ${
                 i === rangeIdx
                   ? 'font-medium'
-                  : 'text-[#8b949e] hover:text-[#e6edf3]'
+                  : 'text-[var(--sub)] hover:text-[var(--fg)]'
               }`}
               style={i === rangeIdx ? { background: INTEL_COLOR + '20', color: INTEL_COLOR } : {}}
             >
@@ -133,7 +133,7 @@ export default function IntelEquipmentChart({ compact = false }) {
       {!compact && data && last && (
         <div className="flex gap-4 mb-3">
           <div>
-            <span className="text-[10px] text-[#8b949e]">Latest Month</span>
+            <span className="text-[10px] text-[var(--sub)]">Latest Month</span>
             <div className="text-sm font-mono font-semibold" style={{ color: INTEL_COLOR }}>
               ${last.value?.toLocaleString('en-US', { maximumFractionDigits: 1 })}M
               {momDelta && (
@@ -144,26 +144,26 @@ export default function IntelEquipmentChart({ compact = false }) {
               )}
             </div>
           </div>
-          <div className="w-px bg-[#21262d]" />
+          <div className="w-px bg-[var(--border)]" />
           <div>
-            <span className="text-[10px] text-[#8b949e]">Flagged Months</span>
+            <span className="text-[10px] text-[var(--sub)]">Flagged Months</span>
             <div className="text-sm font-mono font-semibold" style={{ color: FLAG_COLOR }}>
               {flaggedCount}
-              <span className="ml-1 text-[11px] text-[#484f58]">/ {filtered.length}</span>
+              <span className="ml-1 text-[11px] text-[var(--muted)]">/ {filtered.length}</span>
             </div>
           </div>
-          <div className="w-px bg-[#21262d]" />
+          <div className="w-px bg-[var(--border)]" />
           <div>
-            <span className="text-[10px] text-[#8b949e]">Air Freight</span>
-            <div className="text-[11px] text-[#8b949e] font-mono mt-0.5">
+            <span className="text-[10px] text-[var(--sub)]">Air Freight</span>
+            <div className="text-[11px] text-[var(--sub)] font-mono mt-0.5">
               {last.air_pct != null ? `${last.air_pct}%` : '—'}
-              <span className="ml-1 text-[#484f58]">(EUV = 100%)</span>
+              <span className="ml-1 text-[var(--muted)]">(EUV = 100%)</span>
             </div>
           </div>
-          <div className="w-px bg-[#21262d]" />
+          <div className="w-px bg-[var(--border)]" />
           <div>
-            <span className="text-[10px] text-[#8b949e]">Source</span>
-            <div className="text-[11px] text-[#484f58]">US Census · HTS 848620</div>
+            <span className="text-[10px] text-[var(--sub)]">Source</span>
+            <div className="text-[11px] text-[var(--muted)]">US Census · HTS 848620</div>
           </div>
         </div>
       )}
@@ -175,33 +175,33 @@ export default function IntelEquipmentChart({ compact = false }) {
           <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: FLAG_COLOR }} />
           <span className="text-[10px]" style={{ color: FLAG_COLOR }}>
             {flaggedCount} month{flaggedCount !== 1 ? 's' : ''} flagged as possible High-NA EUV delivery
-            <span className="text-[#484f58] ml-1">(≥$300M or 3× avg, 100% air)</span>
+            <span className="text-[var(--muted)] ml-1">(≥$300M or 3× avg, 100% air)</span>
           </span>
         </div>
       )}
 
       {/* Chart */}
       {error ? (
-        <div className="flex items-center justify-center text-xs text-[#8b949e]" style={{ height: chartHeight }}>
+        <div className="flex items-center justify-center text-xs text-[var(--sub)]" style={{ height: chartHeight }}>
           {error}
         </div>
       ) : !data ? (
-        <div className="flex items-center justify-center text-xs text-[#484f58]" style={{ height: chartHeight }}>
+        <div className="flex items-center justify-center text-xs text-[var(--muted)]" style={{ height: chartHeight }}>
           Loading…
         </div>
       ) : (
         <ResponsiveContainer width="100%" height={chartHeight}>
           <ComposedChart data={filtered} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
-            <CartesianGrid strokeDasharray="2 4" stroke="#21262d" vertical={false} />
+            <CartesianGrid strokeDasharray="2 4" stroke="var(--border)" vertical={false} />
             <XAxis
               dataKey="label"
-              tick={{ fontSize: 10, fill: '#484f58' }}
+              tick={{ fontSize: 10, fill: 'var(--muted)' }}
               tickLine={false}
               axisLine={false}
               interval="preserveStartEnd"
             />
             <YAxis
-              tick={{ fontSize: 10, fill: '#484f58' }}
+              tick={{ fontSize: 10, fill: 'var(--muted)' }}
               tickLine={false}
               axisLine={false}
               width={54}

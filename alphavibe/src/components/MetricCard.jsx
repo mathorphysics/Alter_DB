@@ -28,10 +28,10 @@ export default function MetricCard({ label, value, format, change, icon: Icon, h
   return (
     <div className={`
       relative p-4 rounded-lg border transition-all duration-200
-      bg-[#161b22] hover:bg-[#1c2128]
+      bg-[var(--surface)] hover:bg-[var(--surface)]
       ${highlight
         ? 'border-[#467897]/40 shadow-[0_0_0_1px_rgba(70,120,151,0.15)]'
-        : 'border-[#21262d] hover:border-[#30363d]'
+        : 'border-[var(--border)] hover:border-[var(--border2)]'
       }
     `}>
       {highlight && (
@@ -39,17 +39,17 @@ export default function MetricCard({ label, value, format, change, icon: Icon, h
       )}
 
       <div className="flex items-start justify-between mb-2">
-        <span className="text-[10px] text-[#8b949e] uppercase tracking-widest font-medium">{label}</span>
+        <span className="text-[10px] text-[var(--sub)] uppercase tracking-widest font-medium">{label}</span>
         {Icon && <Icon size={12} className="text-[#467897]/60" />}
       </div>
 
-      <div className="text-xl font-semibold text-[#e6edf3] font-mono tracking-tight mb-1">
+      <div className="text-xl font-semibold text-[var(--fg)] font-mono tracking-tight mb-1">
         {formatValue(value, format)}
       </div>
 
       {change !== undefined && (
         <div className={`flex items-center gap-1 text-xs font-medium ${
-          isPositive ? 'text-emerald-400' : isNegative ? 'text-red-400' : 'text-[#8b949e]'
+          isPositive ? 'text-emerald-400' : isNegative ? 'text-red-400' : 'text-[var(--sub)]'
         }`}>
           {isPositive ? <TrendingUp size={11} /> : isNegative ? <TrendingDown size={11} /> : <Minus size={11} />}
           <span>{isPositive ? '+' : ''}{formatValue(change, 'percent')} today</span>

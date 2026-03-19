@@ -33,18 +33,18 @@ export default function SupplyChainPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Network size={15} className="text-[#467897]" />
-            <h2 className="text-sm font-semibold text-[#e6edf3]">
+            <h2 className="text-sm font-semibold text-[var(--fg)]">
               Semiconductor Supply Chain
             </h2>
           </div>
-          <p className="text-xs text-[#8b949e] max-w-xl leading-relaxed">
+          <p className="text-xs text-[var(--sub)] max-w-xl leading-relaxed">
             End-to-end ecosystem — IP design to final package.
             Click any company card to load live fundamentals and alternative signals.
           </p>
         </div>
 
         {/* Live indicator */}
-        <div className="flex items-center gap-2 text-[10px] text-[#484f58] flex-shrink-0">
+        <div className="flex items-center gap-2 text-[10px] text-[var(--muted)] flex-shrink-0">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           Live pricing via OpenBB
         </div>
@@ -55,7 +55,7 @@ export default function SupplyChainPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.15 }}
-        className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-lg bg-[#161b22]/60 border border-[#21262d] overflow-x-auto"
+        className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--surface)]/60 border border-[var(--border)] overflow-x-auto"
       >
         {STAGES.map((stage, i) => (
           <div key={stage.id} className="flex items-center gap-2 flex-shrink-0">
@@ -69,13 +69,13 @@ export default function SupplyChainPage() {
               </span>
             </div>
             {i < STAGES.length - 1 && (
-              <span className="text-[#30363d] text-xs">→</span>
+              <span className="text-[var(--border2)] text-xs">→</span>
             )}
           </div>
         ))}
-        <div className="ml-auto flex items-center gap-1 text-[10px] text-[#484f58]">
+        <div className="ml-auto flex items-center gap-1 text-[10px] text-[var(--muted)]">
           <Info size={9} />
-          <span>Press <kbd className="px-1 py-px bg-[#21262d] border border-[#30363d] rounded text-[9px] font-mono">E</kbd> to expand all cards</span>
+          <span>Press <kbd className="px-1 py-px bg-[var(--border)] border border-[var(--border2)] rounded text-[9px] font-mono">E</kbd> to expand all cards</span>
         </div>
       </motion.div>
 
