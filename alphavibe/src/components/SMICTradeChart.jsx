@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'recharts';
 import { TrendingUp } from 'lucide-react';
-import { fetchUSEquipmentExports, fetchATEShipments } from '../api/altdata';
+import { fetchATEShipments } from '../api/altdata';
 
 const RANGES = [
   { label: '1Y', months: 12 },
@@ -19,8 +19,8 @@ const RANGES = [
 ];
 
 const SERIES = [
-  { key: 'US_Equipment_CN', name: 'US → CN Equipment (HS-848620)', color: '#f87171' },
-  { key: 'JP_ATE_CN',       name: 'JP → CN ATE (HS-903180)',       color: '#fb923c' },
+  { key: 'USA_CN',   name: 'US → CN ATE (HS-903180)', color: '#f87171' },
+  { key: 'Japan_CN', name: 'JP → CN ATE (HS-903180)', color: '#fb923c' },
 ];
 
 function CustomTooltip({ active, payload, label }) {
@@ -41,30 +41,14 @@ function CustomTooltip({ active, payload, label }) {
   );
 }
 
-function mergeByPeriod(usEquip, ateShipments) {
-  const map = new Map();
-  for (const row of usEquip) {
-    map.set(row.period, { period: row.period, label: row.label, US_Equipment_CN: row.China ?? null });
-  }
-  for (const row of ateShipments) {
-    const existing = map.get(row.period) ?? { period: row.period, label: row.label };
-    existing.JP_ATE_CN = row.Japan_CN ?? null;
-    map.set(row.period, existing);
-  }
-  return Array.from(map.values()).sort((a, b) => (a.period > b.period ? 1 : -1));
-}
-
 export default function SMICTradeChart({ compact = false }) {
   const [data, setData]      = useState(null);
   const [error, setError]    = useState(null);
   const [rangeIdx, setRange] = useState(1);
 
   useEffect(() => {
-    Promise.all([fetchUSEquipmentExports(), fetchATEShipments()])
-      .then(([usRes, ateRes]) => {
-        const merged = mergeByPeriod(usRes.results ?? [], ateRes.results ?? []);
-        setData(merged);
-      })
+    fetchATEShipments()
+      .then((res) => setData(res.results ?? []))
       .catch((e) => setError(e.message));
   }, []);
 
@@ -94,7 +78,7 @@ export default function SMICTradeChart({ compact = false }) {
             </h3>
             {!compact && (
               <p className="text-[11px] text-[var(--sub)]">
-                US HS-848620 equipment + JP HS-903180 ATE exports to China — USD Millions · UN Comtrade
+                US + JP HS-903180 ATE test equipment exports to China — USD Millions · UN Comtrade
               </p>
             )}
           </div>
@@ -135,7 +119,7 @@ export default function SMICTradeChart({ compact = false }) {
                 {i > 0 && <div className="w-px bg-[var(--border)] h-8" />}
                 <div>
                   <span className="text-[10px] text-[var(--sub)]">
-                    {s.key === 'US_Equipment_CN' ? 'US → CN Equip' : 'JP → CN ATE'}
+                    {s.key === 'USA_CN' ? 'US → CN ATE' : 'JP → CN ATE'}
                   </span>
                   <div className="text-sm font-mono font-semibold" style={{ color: s.color }}>
                     ${last[s.key]?.toLocaleString('en-US', { maximumFractionDigits: 1 }) ?? '—'}M
@@ -153,7 +137,7 @@ export default function SMICTradeChart({ compact = false }) {
           <div className="w-px bg-[var(--border)]" />
           <div>
             <span className="text-[10px] text-[var(--sub)]">Source</span>
-            <div className="text-[11px] text-[var(--muted)]">UN Comtrade · HS 848620 / 903180</div>
+            <div className="text-[11px] text-[var(--muted)]">UN Comtrade · HS 903180</div>
           </div>
         </div>
       )}
