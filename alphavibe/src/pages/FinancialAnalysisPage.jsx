@@ -1,5 +1,6 @@
 import { FileText, Scale, PieChart, Calculator } from 'lucide-react';
 import AltDataOverlayChart from '../components/AltDataOverlayChart';
+import MultiRegressionAnalyzer from '../components/MultiRegressionAnalyzer';
 
 const PLACEHOLDERS = [
   {
@@ -39,6 +40,8 @@ export default function FinancialAnalysisPage() {
       </div>
 
       <AltDataOverlayChart />
+
+      <MultiRegressionAnalyzer />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {PLACEHOLDERS.map((item) => {
