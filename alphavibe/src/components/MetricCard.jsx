@@ -1,16 +1,18 @@
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
-function formatValue(value, format) {
+function formatValue(value, format, currency = { symbol: '$', decimals: 2 }) {
   if (value === null || value === undefined) return '—';
+  const sym = currency.symbol;
+  const dec = currency.decimals;
   switch (format) {
     case 'price':
-      return `$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      return `${sym}${Number(value).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
     case 'marketcap': {
       const n = Number(value);
-      if (n >= 1e12) return `$${(n / 1e12).toFixed(2)}T`;
-      if (n >= 1e9) return `$${(n / 1e9).toFixed(2)}B`;
-      if (n >= 1e6) return `$${(n / 1e6).toFixed(2)}M`;
-      return `$${n.toLocaleString()}`;
+      if (n >= 1e12) return `${sym}${(n / 1e12).toFixed(2)}T`;
+      if (n >= 1e9) return `${sym}${(n / 1e9).toFixed(2)}B`;
+      if (n >= 1e6) return `${sym}${(n / 1e6).toFixed(2)}M`;
+      return `${sym}${n.toLocaleString()}`;
     }
     case 'ratio':
       return Number(value).toFixed(2) + 'x';
@@ -21,7 +23,7 @@ function formatValue(value, format) {
   }
 }
 
-export default function MetricCard({ label, value, format, change, icon: Icon, highlight }) {
+export default function MetricCard({ label, value, format, change, icon: Icon, highlight, currency }) {
   const isPositive = change > 0;
   const isNegative = change < 0;
 
@@ -44,7 +46,7 @@ export default function MetricCard({ label, value, format, change, icon: Icon, h
       </div>
 
       <div className="text-xl font-semibold text-[var(--fg)] font-mono tracking-tight mb-1">
-        {formatValue(value, format)}
+        {formatValue(value, format, currency)}
       </div>
 
       {change !== undefined && (

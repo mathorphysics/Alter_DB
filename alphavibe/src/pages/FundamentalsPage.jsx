@@ -105,6 +105,10 @@ export default function FundamentalsPage() {
 
   const hasData = quote || profile || priceHistory.length > 0 || metrics;
 
+  const currency = symbol.toUpperCase().endsWith('.KS')
+    ? { symbol: '₩', decimals: 0 }
+    : { symbol: '$', decimals: 2 };
+
   return (
     <div className="space-y-6">
       <SearchBar onSearch={handleSearch} loading={loading} />
@@ -133,8 +137,9 @@ export default function FundamentalsPage() {
                 : undefined}
               icon={DollarSign}
               highlight
+              currency={currency}
             />
-            <MetricCard label="Market Cap" value={metrics?.market_cap} format="marketcap" icon={BarChart2} />
+            <MetricCard label="Market Cap" value={metrics?.market_cap} format="marketcap" icon={BarChart2} currency={currency} />
             <MetricCard label="P/E Ratio" value={metrics?.pe_ratio} format="ratio" icon={TrendingUp} />
             <MetricCard label="EV / EBITDA" value={metrics?.enterprise_to_ebitda} format="ratio" icon={BarChart2} />
           </div>
@@ -161,7 +166,7 @@ export default function FundamentalsPage() {
             <MetricCard label="Debt / Equity" value={metrics?.debt_to_equity} format="ratio" icon={BarChart2} />
           </div>
 
-          {priceHistory.length > 0 && <PriceChart data={priceHistory} symbol={symbol} />}
+          {priceHistory.length > 0 && <PriceChart data={priceHistory} symbol={symbol} currency={currency} />}
 
           {/* Alt Data teaser — only for TSMC */}
           {symbol.toUpperCase() === 'TSM' && (

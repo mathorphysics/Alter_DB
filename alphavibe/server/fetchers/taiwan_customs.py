@@ -205,10 +205,8 @@ def fetch_equipment_trade() -> Dict:
 
 
 def fetch_equipment_imports() -> List[Dict]:
-    csv_path = _find_csv()
-
-    if csv_path:
-        data = parse_csv(csv_path)
+    if IMPORT_CSV_PATH.exists():
+        data = parse_csv(IMPORT_CSV_PATH)
         save_cache(data)
         return data
 

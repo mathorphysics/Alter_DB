@@ -29,6 +29,15 @@ import {
 } from '../api/altdata';
 import { mergeTimeSeries, xTickInterval, today, daysAgo } from '../utils/timeSeries';
 
+// ── Currency helpers ──────────────────────────────────────────────────────────
+
+const KRW_TICKERS = new Set(['005930.KS']);
+
+function tickerCurrency(ticker) {
+  if (KRW_TICKERS.has(ticker)) return { symbol: '₩', decimals: 0 };
+  return { symbol: '$', decimals: 2 };
+}
+
 // ── Palette ───────────────────────────────────────────────────────────────────
 
 const PRICE_COLOR   = '#e7cd79';
@@ -289,7 +298,7 @@ function reducer(state, action) {
 
 // ── Custom tooltip ────────────────────────────────────────────────────────────
 
-function OverlayTooltip({ active, payload, label, activeSeries }) {
+function OverlayTooltip({ active, payload, label, activeSeries, currency }) {
   if (!active || !payload?.length) return null;
   const row = payload[0]?.payload ?? {};
   return (
@@ -299,7 +308,7 @@ function OverlayTooltip({ active, payload, label, activeSeries }) {
         <div className="flex items-center gap-2 mb-1">
           <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: PRICE_COLOR }} />
           <span className="font-mono font-semibold" style={{ color: PRICE_COLOR }}>
-            ${Number(row.price).toFixed(2)}
+            {currency.symbol}{Number(row.price).toFixed(currency.decimals)}
           </span>
           <span className="text-[var(--sub)]">price</span>
         </div>
@@ -328,6 +337,7 @@ export default function AltDataOverlayChart() {
   const range      = RANGES[rangeIdx];
   const startDate  = daysAgo(range.days);
   const endDate    = today();
+  const currency   = tickerCurrency(ticker);
 
   // Fetch stock price when ticker / range changes
   useEffect(() => {
@@ -424,7 +434,7 @@ export default function AltDataOverlayChart() {
                 <div>
                   <span className="text-[10px] text-[var(--sub)]">{ticker}</span>
                   <div className="text-sm font-mono font-bold" style={{ color: PRICE_COLOR }}>
-                    ${last.price?.toFixed(2)}
+                    {currency.symbol}{last.price?.toFixed(currency.decimals)}
                   </div>
                 </div>
                 {chg != null && (
@@ -489,7 +499,7 @@ export default function AltDataOverlayChart() {
                   tickLine={false}
                   axisLine={false}
                   width={54}
-                  tickFormatter={(v) => `$${v.toFixed(0)}`}
+                  tickFormatter={(v) => `${currency.symbol}${currency.decimals === 0 ? Math.round(v).toLocaleString() : v.toFixed(currency.decimals)}`}
                 />
 
                 {/* Right Y: Alt data */}
@@ -507,7 +517,7 @@ export default function AltDataOverlayChart() {
                 )}
 
                 <Tooltip
-                  content={<OverlayTooltip activeSeries={activeSeries} />}
+                  content={<OverlayTooltip activeSeries={activeSeries} currency={currency} />}
                   cursor={{ stroke: 'var(--border2)', strokeWidth: 1 }}
                 />
 

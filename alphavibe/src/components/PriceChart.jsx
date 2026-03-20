@@ -18,20 +18,20 @@ const RANGES = [
   { label: 'All', days: 9999 },
 ];
 
-function CustomTooltip({ active, payload, label }) {
+function CustomTooltip({ active, payload, label, currency = { symbol: '$', decimals: 2 } }) {
   if (!active || !payload?.length) return null;
   const val = payload[0]?.value;
   return (
     <div className="bg-[var(--surface)] border border-[var(--border)] rounded-lg px-3 py-2 shadow-xl text-xs">
       <div className="text-[var(--sub)] mb-1">{label}</div>
       <div className="text-[#e7cd79] font-mono font-semibold text-sm">
-        ${Number(val).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        {currency.symbol}{Number(val).toLocaleString('en-US', { minimumFractionDigits: currency.decimals, maximumFractionDigits: currency.decimals })}
       </div>
     </div>
   );
 }
 
-export default function PriceChart({ data, symbol }) {
+export default function PriceChart({ data, symbol, currency = { symbol: '$', decimals: 2 } }) {
   const [rangeIdx, setRangeIdx] = useState(4);
 
   const filteredData = (() => {
@@ -119,11 +119,11 @@ export default function PriceChart({ data, symbol }) {
               axisLine={false}
               width={56}
               tickFormatter={(val) =>
-                `$${Number(val).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
+                `${currency.symbol}${Number(val).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
               }
             />
 
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={<CustomTooltip currency={currency} />} />
 
             {firstPrice && (
               <ReferenceLine
