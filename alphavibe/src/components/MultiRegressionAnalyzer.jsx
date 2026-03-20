@@ -33,6 +33,10 @@ import {
   fetchKoreaEquipmentInflow,
   fetchJapanKoreaMaterials,
   fetchFredMacro,
+  fetchASMLDeliveries,
+  fetchUSEquipmentExports,
+  fetchJapanTaiwanMaterials,
+  fetchATEShipments,
 } from '../api/altdata';
 import { normalizeDate, daysAgo, today } from '../utils/timeSeries';
 
@@ -45,16 +49,30 @@ const SERIES_COLORS = ['#a78bfa', '#34d399', '#467897', '#fb923c', '#f87171', '#
 // ── Ticker list (Y selector) ──────────────────────────────────────────────────
 
 const TICKERS = [
-  { value: 'TSM',       label: 'TSMC',            group: 'Frontend' },
-  { value: 'INTC',      label: 'Intel',           group: 'Frontend' },
-  { value: '005930.KS', label: 'Samsung',         group: 'Frontend' },
+  // Designer
   { value: 'NVDA',      label: 'Nvidia',          group: 'Designer' },
   { value: 'AMD',       label: 'AMD',             group: 'Designer' },
+  // Supplier
   { value: 'ASML',      label: 'ASML',            group: 'Supplier' },
   { value: 'AMAT',      label: 'Applied Matl.',   group: 'Supplier' },
   { value: 'LRCX',      label: 'Lam Research',    group: 'Supplier' },
+  { value: 'SHECY',     label: 'Shin-Etsu',       group: 'Supplier' },
+  // Inspection
   { value: 'KLAC',      label: 'KLA',             group: 'Inspection' },
+  { value: 'ONTO',      label: 'Onto Innovation', group: 'Inspection' },
+  { value: 'NVMI',      label: 'Nova',            group: 'Inspection' },
+  { value: 'ATEYY',     label: 'Advantest',       group: 'Inspection' },
+  { value: 'TER',       label: 'Teradyne',        group: 'Inspection' },
+  // Frontend
+  { value: 'TSM',       label: 'TSMC',            group: 'Frontend' },
+  { value: '005930.KS', label: 'Samsung',         group: 'Frontend' },
+  { value: 'INTC',      label: 'Intel',           group: 'Frontend' },
+  { value: '0981.HK',   label: 'SMIC',            group: 'Frontend' },
+  { value: 'GFS',       label: 'GlobalFoundries', group: 'Frontend' },
+  // OSAT
+  { value: 'ASX',       label: 'ASE Group',       group: 'OSAT' },
   { value: 'AMKR',      label: 'Amkor',           group: 'OSAT' },
+  { value: 'JEVTY',     label: 'JCET',            group: 'OSAT' },
 ];
 
 // ── Alt-data feature catalog (X selectors) ────────────────────────────────────
@@ -138,6 +156,134 @@ const X_CATALOG = [
       date:  p.period,
       value: (p.SiliconWafers ?? 0) + (p.Photoresist ?? 0),
     })),
+  },
+
+  // ── ASML Deliveries ────────────────────────────────────────────────────────
+  {
+    key:     'asml-tw',
+    label:   'ASML Deliveries → Taiwan',
+    unit:    'USD M',
+    color:   SERIES_COLORS[0],
+    fetch:   fetchASMLDeliveries,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.Taiwan ?? 0 })),
+  },
+  {
+    key:     'asml-kr',
+    label:   'ASML Deliveries → Korea',
+    unit:    'USD M',
+    color:   SERIES_COLORS[1],
+    fetch:   fetchASMLDeliveries,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.Korea ?? 0 })),
+  },
+  {
+    key:     'asml-cn',
+    label:   'ASML Deliveries → China',
+    unit:    'USD M',
+    color:   SERIES_COLORS[4],
+    fetch:   fetchASMLDeliveries,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.China ?? 0 })),
+  },
+  {
+    key:     'asml-us',
+    label:   'ASML Deliveries → USA',
+    unit:    'USD M',
+    color:   SERIES_COLORS[2],
+    fetch:   fetchASMLDeliveries,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.USA ?? 0 })),
+  },
+
+  // ── US Equipment Exports ────────────────────────────────────────────────────
+  {
+    key:     'us-equip-tw',
+    label:   'US Equip. Exports → Taiwan',
+    unit:    'USD M',
+    color:   SERIES_COLORS[2],
+    fetch:   fetchUSEquipmentExports,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.Taiwan ?? 0 })),
+  },
+  {
+    key:     'us-equip-kr',
+    label:   'US Equip. Exports → Korea',
+    unit:    'USD M',
+    color:   SERIES_COLORS[5],
+    fetch:   fetchUSEquipmentExports,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.Korea ?? 0 })),
+  },
+  {
+    key:     'us-equip-cn',
+    label:   'US Equip. Exports → China',
+    unit:    'USD M',
+    color:   SERIES_COLORS[4],
+    fetch:   fetchUSEquipmentExports,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.China ?? 0 })),
+  },
+
+  // ── Japan → Taiwan Materials ───────────────────────────────────────────────
+  {
+    key:     'jp-tw-wafers',
+    label:   'Japan→TW Silicon Wafers',
+    unit:    'USD M',
+    color:   SERIES_COLORS[1],
+    fetch:   fetchJapanTaiwanMaterials,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.SiliconWafers ?? 0 })),
+  },
+  {
+    key:     'jp-tw-resist',
+    label:   'Japan→TW Photoresist',
+    unit:    'USD M',
+    color:   SERIES_COLORS[3],
+    fetch:   fetchJapanTaiwanMaterials,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.Photoresist ?? 0 })),
+  },
+
+  // ── ATE Shipments ──────────────────────────────────────────────────────────
+  {
+    key:     'ate-jp-tw',
+    label:   'ATE: Japan → Taiwan',
+    unit:    'USD M',
+    color:   SERIES_COLORS[0],
+    fetch:   fetchATEShipments,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.Japan_TW ?? 0 })),
+  },
+  {
+    key:     'ate-us-tw',
+    label:   'ATE: USA → Taiwan',
+    unit:    'USD M',
+    color:   SERIES_COLORS[2],
+    fetch:   fetchATEShipments,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.USA_TW ?? 0 })),
+  },
+  {
+    key:     'ate-jp-kr',
+    label:   'ATE: Japan → Korea',
+    unit:    'USD M',
+    color:   SERIES_COLORS[1],
+    fetch:   fetchATEShipments,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.Japan_KR ?? 0 })),
+  },
+  {
+    key:     'ate-us-kr',
+    label:   'ATE: USA → Korea',
+    unit:    'USD M',
+    color:   SERIES_COLORS[5],
+    fetch:   fetchATEShipments,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.USA_KR ?? 0 })),
+  },
+  {
+    key:     'ate-jp-cn',
+    label:   'ATE: Japan → China',
+    unit:    'USD M',
+    color:   SERIES_COLORS[3],
+    fetch:   fetchATEShipments,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.Japan_CN ?? 0 })),
+  },
+  {
+    key:     'ate-us-cn',
+    label:   'ATE: USA → China',
+    unit:    'USD M',
+    color:   SERIES_COLORS[4],
+    fetch:   fetchATEShipments,
+    extract: (r) => (r.results ?? []).map((p) => ({ date: p.period, value: p.USA_CN ?? 0 })),
   },
 
   // ── FRED Macro ─────────────────────────────────────────────────────────────

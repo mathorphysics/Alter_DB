@@ -10,24 +10,38 @@ import SamsungPatentChart from '../components/SamsungPatentChart';
 import IntelEquipmentChart from '../components/IntelEquipmentChart';
 import IntelChipsChart from '../components/IntelChipsChart';
 import FredMacroPanel from '../components/FredMacroPanel';
+import ASMLDeliveriesChart from '../components/ASMLDeliveriesChart';
+import USEquipmentChart from '../components/USEquipmentChart';
+import JapanTaiwanMaterialsChart from '../components/JapanTaiwanMaterialsChart';
+import ATEShipmentsChart from '../components/ATEShipmentsChart';
+import SMICTradeChart from '../components/SMICTradeChart';
 
 const TAG_META = {
   TSMC:      { color: '#34d399' },
   Samsung:   { color: '#467897' },
   Intel:     { color: '#a78bfa' },
+  SMIC:      { color: '#f87171' },
   Macro:     { color: '#e7cd79' },
+  ASML:      { color: '#e7cd79' },
+  Supplier:  { color: '#467897' },
+  OSAT:      { color: '#fb923c' },
 };
 
 const LIVE_BLOCKS = [
-  { id: 'tsmc-revenue',          tags: ['TSMC'],    Component: TsmcRevenueChart },
-  { id: 'fabless-inventory',     tags: ['TSMC'],    Component: FablessInventoryChart },
-  { id: 'customs-trade',         tags: ['TSMC'],    Component: CustomsTradeChart },
-  { id: 'korea-equipment-inflow',   tags: ['Samsung'], Component: KoreaEquipmentChart },
-  { id: 'japan-korea-materials',    tags: ['Samsung'], Component: JapanMaterialsChart },
-  { id: 'samsung-patents',          tags: ['Samsung'], Component: SamsungPatentChart },
-  { id: 'intel-oregon-equipment',   tags: ['Intel'],   Component: IntelEquipmentChart },
-  { id: 'intel-chips-funding',      tags: ['Intel'],   Component: IntelChipsChart },
-  { id: 'fred-macro',               tags: ['Macro'],   Component: FredMacroPanel },
+  { id: 'tsmc-revenue',              tags: ['TSMC'],              Component: TsmcRevenueChart },
+  { id: 'fabless-inventory',         tags: ['TSMC'],              Component: FablessInventoryChart },
+  { id: 'customs-trade',             tags: ['TSMC'],              Component: CustomsTradeChart },
+  { id: 'japan-taiwan-materials',    tags: ['TSMC', 'Supplier'],  Component: JapanTaiwanMaterialsChart },
+  { id: 'korea-equipment-inflow',    tags: ['Samsung'],           Component: KoreaEquipmentChart },
+  { id: 'japan-korea-materials',     tags: ['Samsung'],           Component: JapanMaterialsChart },
+  { id: 'samsung-patents',           tags: ['Samsung'],           Component: SamsungPatentChart },
+  { id: 'intel-oregon-equipment',    tags: ['Intel'],             Component: IntelEquipmentChart },
+  { id: 'intel-chips-funding',       tags: ['Intel'],             Component: IntelChipsChart },
+  { id: 'smic-trade',               tags: ['SMIC'],              Component: SMICTradeChart },
+  { id: 'asml-deliveries',           tags: ['ASML', 'Supplier'],  Component: ASMLDeliveriesChart },
+  { id: 'us-equipment-exports',      tags: ['Supplier'],          Component: USEquipmentChart },
+  { id: 'ate-shipments',             tags: ['OSAT', 'Supplier'],  Component: ATEShipmentsChart },
+  { id: 'fred-macro',                tags: ['Macro'],             Component: FredMacroPanel },
 ];
 
 export default function AlternativesPage() {

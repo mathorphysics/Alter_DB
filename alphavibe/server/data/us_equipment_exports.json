@@ -1,0 +1,140 @@
+[
+  {
+    "period": "2023-12",
+    "label": "Dec 2023",
+    "Taiwan": 134.83,
+    "Korea": 335.51
+  },
+  {
+    "period": "2024-01",
+    "label": "Jan 2024",
+    "Taiwan": 106.87,
+    "Korea": 324.09
+  },
+  {
+    "period": "2024-02",
+    "label": "Feb 2024",
+    "Taiwan": 70.06,
+    "Korea": 143.07
+  },
+  {
+    "period": "2024-03",
+    "label": "Mar 2024",
+    "Taiwan": 84.35,
+    "Korea": 236.15
+  },
+  {
+    "period": "2024-04",
+    "label": "Apr 2024",
+    "Taiwan": 261.19,
+    "Korea": 164.77
+  },
+  {
+    "period": "2024-05",
+    "label": "May 2024",
+    "Taiwan": 138.71,
+    "Korea": 166.81
+  },
+  {
+    "period": "2024-06",
+    "label": "Jun 2024",
+    "Taiwan": 244.98,
+    "Korea": 184.47
+  },
+  {
+    "period": "2024-07",
+    "label": "Jul 2024",
+    "Taiwan": 219.41,
+    "Korea": 162.37
+  },
+  {
+    "period": "2024-08",
+    "label": "Aug 2024",
+    "Taiwan": 152.67,
+    "Korea": 125.41
+  },
+  {
+    "period": "2024-09",
+    "label": "Sep 2024",
+    "Taiwan": 154.94,
+    "Korea": 178.91
+  },
+  {
+    "period": "2024-10",
+    "label": "Oct 2024",
+    "Taiwan": 226.94,
+    "Korea": 254.67
+  },
+  {
+    "period": "2024-11",
+    "label": "Nov 2024",
+    "Taiwan": 156.82,
+    "Korea": 147.34
+  },
+  {
+    "period": "2024-12",
+    "label": "Dec 2024",
+    "Taiwan": 170.3,
+    "Korea": 267.51
+  },
+  {
+    "period": "2025-01",
+    "label": "Jan 2025",
+    "Taiwan": 267.64,
+    "Korea": 408.71
+  },
+  {
+    "period": "2025-02",
+    "label": "Feb 2025",
+    "Taiwan": 209.38,
+    "Korea": 222.25
+  },
+  {
+    "period": "2025-03",
+    "label": "Mar 2025",
+    "Taiwan": 354.96,
+    "Korea": 150.58
+  },
+  {
+    "period": "2025-04",
+    "label": "Apr 2025",
+    "Taiwan": 462.6,
+    "Korea": 364.27
+  },
+  {
+    "period": "2025-05",
+    "label": "May 2025",
+    "Taiwan": 145.05,
+    "Korea": 149.12
+  },
+  {
+    "period": "2025-06",
+    "label": "Jun 2025",
+    "Taiwan": 247.12,
+    "Korea": 215.36
+  },
+  {
+    "period": "2025-07",
+    "label": "Jul 2025",
+    "Taiwan": 509.23,
+    "Korea": 258.33
+  },
+  {
+    "period": "2025-08",
+    "label": "Aug 2025",
+    "Taiwan": 173.18,
+    "Korea": 111.27
+  },
+  {
+    "period": "2025-09",
+    "label": "Sep 2025",
+    "Taiwan": 289.43,
+    "Korea": 188.67
+  },
+  {
+    "period": "2025-10",
+    "label": "Oct 2025",
+    "Taiwan": 434.69,
+    "Korea": 287.31
+  }
+]

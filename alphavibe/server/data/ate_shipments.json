@@ -1,0 +1,239 @@
+[
+  {
+    "period": "2023-12",
+    "label": "Dec 2023",
+    "Japan_TW": 7.7,
+    "USA_TW": 7.29,
+    "Japan_KR": 8.41,
+    "USA_KR": 7.34,
+    "Japan_CN": 30.89,
+    "USA_CN": 34.97
+  },
+  {
+    "period": "2024-01",
+    "label": "Jan 2024",
+    "Japan_TW": 8.4,
+    "USA_TW": 4.81,
+    "Japan_KR": 7.6,
+    "USA_KR": 6.1,
+    "Japan_CN": 19.48,
+    "USA_CN": 24.56
+  },
+  {
+    "period": "2024-02",
+    "label": "Feb 2024",
+    "Japan_TW": 3.83,
+    "USA_TW": 5.35,
+    "Japan_KR": 6.71,
+    "USA_KR": 4.18,
+    "Japan_CN": 21.36,
+    "USA_CN": 26.24
+  },
+  {
+    "period": "2024-03",
+    "label": "Mar 2024",
+    "Japan_TW": 7.61,
+    "USA_TW": 6.81,
+    "Japan_KR": 7.83,
+    "USA_KR": 5.28,
+    "Japan_CN": 27.11,
+    "USA_CN": 28.21
+  },
+  {
+    "period": "2024-04",
+    "label": "Apr 2024",
+    "Japan_TW": 7.64,
+    "USA_TW": 4.96,
+    "Japan_KR": 7.74,
+    "USA_KR": 4.2,
+    "Japan_CN": 28.6,
+    "USA_CN": 27.34
+  },
+  {
+    "period": "2024-05",
+    "label": "May 2024",
+    "Japan_TW": 3.19,
+    "USA_TW": 3.71,
+    "Japan_KR": 5.27,
+    "USA_KR": 8.98,
+    "Japan_CN": 34.64,
+    "USA_CN": 26.76
+  },
+  {
+    "period": "2024-06",
+    "label": "Jun 2024",
+    "Japan_TW": 3.7,
+    "USA_TW": 2.81,
+    "Japan_KR": 6.5,
+    "USA_KR": 6.32,
+    "Japan_CN": 37.93,
+    "USA_CN": 32.79
+  },
+  {
+    "period": "2024-07",
+    "label": "Jul 2024",
+    "Japan_TW": 4.39,
+    "USA_TW": 3.37,
+    "Japan_KR": 6.58,
+    "USA_KR": 5.92,
+    "Japan_CN": 31.75,
+    "USA_CN": 24.95
+  },
+  {
+    "period": "2024-08",
+    "label": "Aug 2024",
+    "Japan_TW": 5.32,
+    "USA_TW": 4.1,
+    "Japan_KR": 5.97,
+    "USA_KR": 5.37,
+    "Japan_CN": 27.74,
+    "USA_CN": 22.81
+  },
+  {
+    "period": "2024-09",
+    "label": "Sep 2024",
+    "Japan_TW": 7.73,
+    "USA_TW": 11.63,
+    "Japan_KR": 7.9,
+    "USA_KR": 7.14,
+    "Japan_CN": 27.15,
+    "USA_CN": 26.22
+  },
+  {
+    "period": "2024-10",
+    "label": "Oct 2024",
+    "Japan_TW": 4.5,
+    "USA_TW": 7.14,
+    "Japan_KR": 17.16,
+    "USA_KR": 6.47,
+    "Japan_CN": 35.01,
+    "USA_CN": 24.88
+  },
+  {
+    "period": "2024-11",
+    "label": "Nov 2024",
+    "Japan_TW": 6.93,
+    "USA_TW": 4.67,
+    "Japan_KR": 11.22,
+    "USA_KR": 10.02,
+    "Japan_CN": 27.42,
+    "USA_CN": 29.57
+  },
+  {
+    "period": "2024-12",
+    "label": "Dec 2024",
+    "Japan_TW": 7.28,
+    "USA_TW": 5.8,
+    "Japan_KR": 10.34,
+    "USA_KR": 5.17,
+    "Japan_CN": 29.02,
+    "USA_CN": 38.52
+  },
+  {
+    "period": "2025-01",
+    "label": "Jan 2025",
+    "Japan_TW": 6.78,
+    "USA_TW": 1.98,
+    "Japan_KR": 5.07,
+    "USA_KR": 5.95,
+    "Japan_CN": 19.59,
+    "USA_CN": 28.76
+  },
+  {
+    "period": "2025-02",
+    "label": "Feb 2025",
+    "Japan_TW": 10.95,
+    "USA_TW": 4.53,
+    "Japan_KR": 9.79,
+    "USA_KR": 7.0,
+    "Japan_CN": 24.41,
+    "USA_CN": 23.07
+  },
+  {
+    "period": "2025-03",
+    "label": "Mar 2025",
+    "Japan_TW": 5.41,
+    "USA_TW": 5.87,
+    "Japan_KR": 9.68,
+    "USA_KR": 8.33,
+    "Japan_CN": 31.29,
+    "USA_CN": 34.85
+  },
+  {
+    "period": "2025-04",
+    "label": "Apr 2025",
+    "Japan_TW": 6.25,
+    "USA_TW": 5.45,
+    "Japan_KR": 7.55,
+    "USA_KR": 7.83,
+    "Japan_CN": 39.26,
+    "USA_CN": 29.52
+  },
+  {
+    "period": "2025-05",
+    "label": "May 2025",
+    "Japan_TW": 5.96,
+    "USA_TW": 4.63,
+    "Japan_KR": 5.71,
+    "USA_KR": 6.2,
+    "Japan_CN": 30.95,
+    "USA_CN": 20.99
+  },
+  {
+    "period": "2025-06",
+    "label": "Jun 2025",
+    "Japan_TW": 4.0,
+    "USA_TW": 13.48,
+    "Japan_KR": 5.98,
+    "USA_KR": 9.43,
+    "Japan_CN": 30.9,
+    "USA_CN": 29.9
+  },
+  {
+    "period": "2025-07",
+    "label": "Jul 2025",
+    "Japan_TW": 8.46,
+    "USA_TW": 4.32,
+    "Japan_KR": 8.74,
+    "USA_KR": 8.97,
+    "Japan_CN": 30.59,
+    "USA_CN": 22.97
+  },
+  {
+    "period": "2025-08",
+    "label": "Aug 2025",
+    "Japan_TW": 5.61,
+    "USA_TW": 4.76,
+    "Japan_KR": 4.66,
+    "USA_KR": 5.18,
+    "Japan_CN": 32.85,
+    "USA_CN": 27.77
+  },
+  {
+    "period": "2025-09",
+    "label": "Sep 2025",
+    "Japan_TW": 4.63,
+    "USA_TW": 5.64,
+    "Japan_KR": 8.65,
+    "USA_KR": 7.52,
+    "Japan_CN": 35.56,
+    "USA_CN": 17.91
+  },
+  {
+    "period": "2025-10",
+    "label": "Oct 2025",
+    "Japan_TW": 6.19,
+    "USA_TW": 4.26,
+    "Japan_KR": 8.56,
+    "USA_KR": 6.28,
+    "Japan_CN": 39.63,
+    "USA_CN": 43.8
+  },
+  {
+    "period": "2025-11",
+    "label": "Nov 2025",
+    "Japan_TW": 5.64,
+    "Japan_KR": 9.97,
+    "Japan_CN": 34.27
+  }
+]

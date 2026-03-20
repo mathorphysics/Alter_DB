@@ -101,6 +101,8 @@ export default function SupplyChainPage() {
         open={modalKey === 'taiwan-equipment-imports'}
         onClose={() => setModalKey(null)}
       />
+
+
     </div>
   );
 }

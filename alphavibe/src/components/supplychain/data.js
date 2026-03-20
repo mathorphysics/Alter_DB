@@ -69,7 +69,12 @@ export const STAGES = [
           { label: 'CHIPS Act Funding',          value: 'View Chart →', delta: null, link: '/alternatives?tag=Intel#intel-chips-funding' },
         ],
       },
-      { name: 'SMIC',            ticker: 'SMICY',    desc: '中国最先进代工厂',      flag: '🇨🇳', role: 'Mature Node' },
+      {
+        name: 'SMIC', ticker: '0981.HK', desc: '中国最先进代工厂', flag: '🇨🇳', role: 'Mature Node',
+        altData: [
+          { label: 'US/JP Equipment → CN', value: 'View Chart →', delta: null, link: '/alternatives?tag=SMIC#smic-trade' },
+        ],
+      },
       { name: 'GlobalFoundries', ticker: 'GFS',      desc: '特色工艺代工',          flag: '🇺🇸', role: 'Specialty' },
     ],
     altData: [

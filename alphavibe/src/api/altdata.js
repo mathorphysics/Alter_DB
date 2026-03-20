@@ -58,3 +58,23 @@ export async function fetchTaiwanEquipmentImports() {
 export async function fetchFredMacro() {
   return request('/macro/fred');
 }
+
+/** ASML equipment deliveries — NL HS-848620 exports to TW / KR / CN / US. */
+export async function fetchASMLDeliveries() {
+  return request('/supplier/asml-deliveries');
+}
+
+/** US semiconductor equipment exports — HS-848620 to TW / KR / CN (AMAT / Lam / KLA proxy). */
+export async function fetchUSEquipmentExports() {
+  return request('/supplier/us-equipment-exports');
+}
+
+/** Japan → Taiwan semiconductor materials — silicon wafers (HS 381800) + photoresist (HS 370790). */
+export async function fetchJapanTaiwanMaterials() {
+  return request('/supplier/japan-taiwan-materials');
+}
+
+/** ATE shipments — Japan (Advantest) + USA (Teradyne) HS-903180 exports to TW / KR / CN. */
+export async function fetchATEShipments() {
+  return request('/osat/ate-shipments');
+}

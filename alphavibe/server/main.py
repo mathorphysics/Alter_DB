@@ -25,6 +25,10 @@ from fetchers.samsung_patents import get_patents, refresh_from_xlsx
 from fetchers.census_intel_oregon import get_intel_oregon, fetch_intel_oregon_equipment
 from fetchers.usaspending_intel import get_intel_funding, fetch_intel_federal_funding
 from fetchers.fred import get_fred_macro, fetch_fred_macro
+from fetchers.comtrade_asml_deliveries import get_asml_deliveries, fetch_asml_deliveries
+from fetchers.comtrade_us_equipment_exports import get_us_equipment_exports, fetch_us_equipment_exports
+from fetchers.comtrade_japan_taiwan_materials import get_japan_taiwan_materials, fetch_japan_taiwan_materials
+from fetchers.comtrade_ate_shipments import get_ate_shipments, fetch_ate_shipments
 
 try:
     from fetchers.auto_download import download_csv as _auto_download_csv
@@ -694,6 +698,248 @@ def refresh_macro_fred():
         return {"message": "FRED macro cache refreshed", "as_of": data.get("as_of")}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+# ── Supplier: ASML Delivery Tracker ──────────────────────────────────────────
+
+class ASMLDeliveryPoint(BaseModel):
+    period: str
+    label:  str
+    Taiwan: Optional[float] = None
+    Korea:  Optional[float] = None
+    China:  Optional[float] = None
+    USA:    Optional[float] = None
+
+class ASMLDeliveryResponse(BaseModel):
+    title:   str
+    unit:    str
+    source:  str
+    hs_code: str
+    as_of:   str
+    results: List[ASMLDeliveryPoint]
+
+@app.get(
+    "/alt-data/v1/supplier/asml-deliveries",
+    response_model=ASMLDeliveryResponse,
+    summary="ASML Equipment Deliveries — NL HS-848620 exports to TW / KR / CN / US",
+    tags=["Alt Data — Supplier"],
+)
+def get_asml_deliveries_endpoint():
+    try:
+        data = get_asml_deliveries()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+    return ASMLDeliveryResponse(
+        title   = "ASML Equipment Deliveries by Destination",
+        unit    = "USD Millions",
+        source  = "UN Comtrade — NL HS 848620",
+        hs_code = "848620",
+        as_of   = datetime.now().strftime("%Y-%m-%d"),
+        results = data,
+    )
+
+@app.post(
+    "/alt-data/v1/refresh/asml-deliveries",
+    response_model=ASMLDeliveryResponse,
+    summary="Re-fetch ASML delivery data from UN Comtrade",
+    tags=["Alt Data — Supplier"],
+)
+def refresh_asml_deliveries():
+    try:
+        data = fetch_asml_deliveries(months=24)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+    return ASMLDeliveryResponse(
+        title   = "ASML Equipment Deliveries by Destination",
+        unit    = "USD Millions",
+        source  = "UN Comtrade — NL HS 848620",
+        hs_code = "848620",
+        as_of   = datetime.now().strftime("%Y-%m-%d"),
+        results = data,
+    )
+
+
+# ── Supplier: US Equipment Export Tracker ─────────────────────────────────────
+
+class USEquipmentPoint(BaseModel):
+    period: str
+    label:  str
+    Taiwan: Optional[float] = None
+    Korea:  Optional[float] = None
+    China:  Optional[float] = None
+
+class USEquipmentResponse(BaseModel):
+    title:       str
+    unit:        str
+    source:      str
+    hs_code:     str
+    description: str
+    as_of:       str
+    results:     List[USEquipmentPoint]
+
+@app.get(
+    "/alt-data/v1/supplier/us-equipment-exports",
+    response_model=USEquipmentResponse,
+    summary="US HS-848620 Equipment Exports to TW / KR / CN — AMAT / Lam / KLA proxy",
+    tags=["Alt Data — Supplier"],
+)
+def get_us_equipment_endpoint():
+    try:
+        data = get_us_equipment_exports()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+    return USEquipmentResponse(
+        title       = "US Semiconductor Equipment Exports",
+        unit        = "USD Millions",
+        source      = "UN Comtrade — US HS 848620",
+        hs_code     = "848620",
+        description = "Monthly HS-848620 exports from USA. "
+                      "Collective proxy for AMAT / Lam Research / KLA shipments. "
+                      "US→China column tracks entity-list impact in real time.",
+        as_of       = datetime.now().strftime("%Y-%m-%d"),
+        results     = data,
+    )
+
+@app.post(
+    "/alt-data/v1/refresh/us-equipment-exports",
+    response_model=USEquipmentResponse,
+    summary="Re-fetch US equipment export data from UN Comtrade",
+    tags=["Alt Data — Supplier"],
+)
+def refresh_us_equipment():
+    try:
+        data = fetch_us_equipment_exports(months=24)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+    return USEquipmentResponse(
+        title       = "US Semiconductor Equipment Exports",
+        unit        = "USD Millions",
+        source      = "UN Comtrade — US HS 848620",
+        hs_code     = "848620",
+        description = "Monthly HS-848620 exports from USA.",
+        as_of       = datetime.now().strftime("%Y-%m-%d"),
+        results     = data,
+    )
+
+
+# ── Supplier: Japan → Taiwan Materials ────────────────────────────────────────
+
+class JapanTaiwanMaterialsPoint(BaseModel):
+    period:        str
+    label:         str
+    SiliconWafers: Optional[float] = None
+    Photoresist:   Optional[float] = None
+
+class JapanTaiwanMaterialsResponse(BaseModel):
+    title:   str
+    unit:    str
+    source:  str
+    as_of:   str
+    results: List[JapanTaiwanMaterialsPoint]
+
+@app.get(
+    "/alt-data/v1/supplier/japan-taiwan-materials",
+    response_model=JapanTaiwanMaterialsResponse,
+    summary="Japan → Taiwan semiconductor materials (HS 381800 / 370790)",
+    tags=["Alt Data — Supplier"],
+)
+def get_japan_taiwan_materials_endpoint():
+    try:
+        data = get_japan_taiwan_materials()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+    return JapanTaiwanMaterialsResponse(
+        title   = "Japan → Taiwan Semiconductor Materials",
+        unit    = "USD Millions",
+        source  = "UN Comtrade — HS 381800 / 370790",
+        as_of   = datetime.now().strftime("%Y-%m-%d"),
+        results = data,
+    )
+
+@app.post(
+    "/alt-data/v1/refresh/japan-taiwan-materials",
+    response_model=JapanTaiwanMaterialsResponse,
+    summary="Re-fetch Japan→Taiwan materials from UN Comtrade",
+    tags=["Alt Data — Supplier"],
+)
+def refresh_japan_taiwan_materials():
+    try:
+        data = fetch_japan_taiwan_materials(months=24)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+    return JapanTaiwanMaterialsResponse(
+        title   = "Japan → Taiwan Semiconductor Materials",
+        unit    = "USD Millions",
+        source  = "UN Comtrade — HS 381800 / 370790",
+        as_of   = datetime.now().strftime("%Y-%m-%d"),
+        results = data,
+    )
+
+
+# ── OSAT: ATE Shipment Tracker ────────────────────────────────────────────────
+
+class ATEShipmentPoint(BaseModel):
+    period:   str
+    label:    str
+    Japan_TW: Optional[float] = None
+    USA_TW:   Optional[float] = None
+    Japan_KR: Optional[float] = None
+    USA_KR:   Optional[float] = None
+    Japan_CN: Optional[float] = None
+    USA_CN:   Optional[float] = None
+
+class ATEShipmentResponse(BaseModel):
+    title:       str
+    unit:        str
+    source:      str
+    hs_code:     str
+    description: str
+    as_of:       str
+    results:     List[ATEShipmentPoint]
+
+@app.get(
+    "/alt-data/v1/osat/ate-shipments",
+    response_model=ATEShipmentResponse,
+    summary="ATE Shipments — JP+US HS-903180 exports to TW / KR / CN",
+    tags=["Alt Data — OSAT"],
+)
+def get_ate_shipments_endpoint():
+    try:
+        data = get_ate_shipments()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+    return ATEShipmentResponse(
+        title       = "ATE Equipment Shipments by Route",
+        unit        = "USD Millions",
+        source      = "UN Comtrade — HS 903180",
+        hs_code     = "903180",
+        description = "Japan (Advantest) and USA (Teradyne) exports of semiconductor "
+                      "test equipment (HS 903180). Leading indicator for OSAT advanced "
+                      "packaging capacity — ATE lead times are 12-18 months.",
+        as_of       = datetime.now().strftime("%Y-%m-%d"),
+        results     = data,
+    )
+
+@app.post(
+    "/alt-data/v1/refresh/ate-shipments",
+    response_model=ATEShipmentResponse,
+    summary="Re-fetch ATE shipment data from UN Comtrade",
+    tags=["Alt Data — OSAT"],
+)
+def refresh_ate_shipments():
+    try:
+        data = fetch_ate_shipments(months=24)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e)) from e
+    return ATEShipmentResponse(
+        title       = "ATE Equipment Shipments by Route",
+        unit        = "USD Millions",
+        source      = "UN Comtrade — HS 903180",
+        hs_code     = "903180",
+        description = "Japan (Advantest) and USA (Teradyne) exports of semiconductor test equipment.",
+        as_of       = datetime.now().strftime("%Y-%m-%d"),
+        results     = data,
+    )
 
 
 # ── Equity endpoints (yfinance, mimics OpenBB response shape) ─────────────────

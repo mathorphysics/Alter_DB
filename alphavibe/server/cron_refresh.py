@@ -45,6 +45,10 @@ from fetchers.samsung_patents import refresh_from_xlsx  # noqa: E402
 from fetchers.census_intel_oregon import fetch_intel_oregon_equipment  # noqa: E402
 from fetchers.usaspending_intel import fetch_intel_federal_funding     # noqa: E402
 from fetchers.fred import fetch_fred_macro                            # noqa: E402
+from fetchers.comtrade_asml_deliveries import fetch_asml_deliveries          # noqa: E402
+from fetchers.comtrade_us_equipment_exports import fetch_us_equipment_exports # noqa: E402
+from fetchers.comtrade_japan_taiwan_materials import fetch_japan_taiwan_materials  # noqa: E402
+from fetchers.comtrade_ate_shipments import fetch_ate_shipments              # noqa: E402
 
 
 def main() -> int:
@@ -100,11 +104,11 @@ def main() -> int:
         logger.error("Japan materials refresh FAILED: %s", exc, exc_info=True)
         exit_code = 1
 
-    # ── 6. Samsung patent filing trend (PatentsView) ──────────────────────────
+    # ── 6. Samsung patent filing trend (KIPRIS xlsx) ──────────────────────────
     logger.info("=== Samsung patents refresh started ===")
     try:
-        data = fetch_samsung_patents(years=5)
-        logger.info("Cached %d months", len(data.get("timeseries", [])))
+        data = refresh_from_xlsx()
+        logger.info("Cached %d years", len(data.get("timeseries", [])))
     except Exception as exc:
         logger.error("Samsung patents refresh FAILED: %s", exc, exc_info=True)
         exit_code = 1
@@ -141,6 +145,42 @@ def main() -> int:
         logger.info("Cached %d FRED series", series_count)
     except Exception as exc:
         logger.error("FRED macro refresh FAILED: %s", exc, exc_info=True)
+        exit_code = 1
+
+    # ── 10. ASML delivery tracker (NL → TW / KR / CN / US) ───────────────────
+    logger.info("=== ASML deliveries refresh started ===")
+    try:
+        data = fetch_asml_deliveries(months=24)
+        logger.info("Cached %d months", len(data))
+    except Exception as exc:
+        logger.error("ASML deliveries refresh FAILED: %s", exc, exc_info=True)
+        exit_code = 1
+
+    # ── 11. US equipment export tracker (US → TW / KR / CN) ──────────────────
+    logger.info("=== US equipment exports refresh started ===")
+    try:
+        data = fetch_us_equipment_exports(months=24)
+        logger.info("Cached %d months", len(data))
+    except Exception as exc:
+        logger.error("US equipment exports refresh FAILED: %s", exc, exc_info=True)
+        exit_code = 1
+
+    # ── 12. Japan → Taiwan materials (silicon wafers + photoresist) ───────────
+    logger.info("=== Japan→Taiwan materials refresh started ===")
+    try:
+        data = fetch_japan_taiwan_materials(months=24)
+        logger.info("Cached %d months", len(data))
+    except Exception as exc:
+        logger.error("Japan→Taiwan materials refresh FAILED: %s", exc, exc_info=True)
+        exit_code = 1
+
+    # ── 13. ATE shipments (JP+US → TW / KR / CN) ─────────────────────────────
+    logger.info("=== ATE shipments refresh started ===")
+    try:
+        data = fetch_ate_shipments(months=24)
+        logger.info("Cached %d months", len(data))
+    except Exception as exc:
+        logger.error("ATE shipments refresh FAILED: %s", exc, exc_info=True)
         exit_code = 1
 
     logger.info("=== Refresh complete (exit=%d) ===", exit_code)
